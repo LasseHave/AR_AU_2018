@@ -27,10 +27,11 @@ public class MeteorCollision : MonoBehaviour {
 		double dist = Mathf.Sqrt (Mathf.Pow (earthPos.x - meteorPos.x, 2)
 			+ Mathf.Pow (earthPos.y - meteorPos.y, 2)
 			+ Mathf.Pow (earthPos.z - meteorPos.z, 2));
-		float radMeteor = transform.localScale.x * 0.5F;
-		float radEarth = transform.localScale.x * sun.transform.localScale.x * 0.5F;
 
-		if (dist < (radEarth * 0.5 + radMeteor * 0.5)) {
+		float radMeteor = transform.localScale.x * 0.5F;
+		float radEarth = earth.transform.localScale.x * sun.transform.localScale.x * 0.5F;
+
+		if (dist < (radEarth + radMeteor)) {
 			var collisionPoint = ((meteorPos - earthPos) * radEarth) + earthPos;
 			Debug.Log ("They collided!");
 

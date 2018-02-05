@@ -9,7 +9,7 @@ public class EarthMotion : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate (new Vector3 (0f, 1f, .5f));
+		transform.Rotate (Vector3.up);
 		transform.RotateAround (Vector3.zero, Vector3.up, 60 * Time.deltaTime);
 	}
 }
