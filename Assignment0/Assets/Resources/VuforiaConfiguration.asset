@@ -44,14 +44,16 @@ MonoBehaviour:
       ContainsMagnet: 0
   databaseLoad:
     dataSetsToLoad:
-    - Assignment0
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assignment1_v1
+    - Assignment0
     - AR2018
     dataSetsToActivate:
-    - Assignment0
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assignment1_v1
+    - Assignment0
     - AR2018
   videoBackground:
     clippingMode: 0
