@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="landingstrip_mark" size="0.097000 0.266709" />
+    <ImageTarget name="tie-fighter2-improved" size="0.030000 0.043437" />
+    <ImageTarget name="te-fighter-improved" size="0.031000 0.041383" />
+    <ImageTarget name="Earth" size="0.190000 0.189261" />
+    <ImageTarget name="shuttle" size="0.058000 0.102061" />
+    <ImageTarget name="falcon" size="0.072000 0.097622" />
+  </Tracking>
+</QCARConfig>
