@@ -46,14 +46,10 @@ MonoBehaviour:
     dataSetsToLoad:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
-    - Assignment1_v1
-    - Assignment0
     - AR2018
     dataSetsToActivate:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
-    - Assignment1_v1
-    - Assignment0
     - AR2018
   videoBackground:
     clippingMode: 0
