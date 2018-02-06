@@ -14,8 +14,11 @@ public class SpaceShuttle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		quadRenderer = quad.GetComponent<Renderer> ();
-	}
+        landingStrip = GameObject.Find("LandingStrip");
+        quad = GameObject.Find("Quad");
+        quadRenderer = quad.GetComponent<Renderer>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,7 +28,9 @@ public class SpaceShuttle : MonoBehaviour {
 		Color color = Color.Lerp (green, red, dot);
 
 		quadRenderer.material.color = color;
-
+        Debug.Log("Shuttle pos: " + this.transform.position.normalized);
+        Debug.Log("Landing Pos: " + landingStrip.transform.position.normalized);
+        Debug.Log("Dot product: " + normalizedDot);
 		Debug.Log ("color: " + color);
 	}
 }
