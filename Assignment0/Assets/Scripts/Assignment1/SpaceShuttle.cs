@@ -27,9 +27,12 @@ public class SpaceShuttle : MonoBehaviour {
 
 		var t = Mathf.Clamp01 (forwardDot * rightDot);
 
-		quadRenderer.material.color = Color.Lerp (red, green, t);
+		var color = new Color ((1 - t), t, 0);
+		quadRenderer.material.color = color;
 
 		Debug.Log (t);
+		Debug.Log ("255 * (1 - " + t + "), 255 * t, 0");
+		Debug.Log (color);
         Debug.Log("forwardDot: " + forwardDot);
         Debug.Log("rightDow: " + rightDot);
 	}
