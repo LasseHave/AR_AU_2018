@@ -22,14 +22,15 @@ public class SpaceShuttle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var dot = Vector3.Dot(transform.forward, landingStrip.transform.forward);
-		var normalizedDot = (dot + 1) / 2;
+		var forwardDot = Vector3.Dot(transform.forward, landingStrip.transform.forward);
+		var rightDot = Vector3.Dot(transform.right, landingStrip.transform.right);
 
-		quadRenderer.material.color = Color.Lerp (green, red, normalizedDot);
+		var t = Mathf.Clamp01 (forwardDot * rightDot);
 
-        Debug.Log("Shuttle pos: " + this.transform.position.normalized);
-        Debug.Log("Landing Pos: " + landingStrip.transform.position.normalized);
-        Debug.Log("norm Dot product: " + normalizedDot);
-		Debug.Log("Dot: " + dot);
+		quadRenderer.material.color = Color.Lerp (red, green, t);
+
+		Debug.Log (t);
+        Debug.Log("forwardDot: " + forwardDot);
+        Debug.Log("rightDow: " + rightDot);
 	}
 }
