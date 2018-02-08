@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731316, g: 0.38074902, b: 0.3587254, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.18184613, y: 0, z: 0.5}
+      m_Extent: {x: 0.1919592, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -183,7 +183,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: df353abe00000000000000bf00000000ffff7f3f000000000000000000000000df353abe000000000000003f00000000ffff7f3f00000000000000000000803fdf353a3e00000000000000bf00000000ffff7f3f000000000000803f00000000df353a3e000000000000003f00000000ffff7f3f000000000000803f0000803f
+    _typelessdata: f49044be00000000000000bf000000000000803f000000000000000000000000f49044be000000000000003f000000000000803f00000000000000000000803ff490443e00000000000000bf000000000000803f000000000000803f00000000f490443e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -337,14 +337,14 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: landingstrip_mark
+  mTrackableName: IMG_3367
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/Assignment1_v1.xml
+  mDataSetPath: Vuforia/AR2018.xml
   mExtendedTracking: 0
-  mAspectRatio: 2.7495773
+  mAspectRatio: 2.60472
   mImageTargetType: 0
-  mWidth: 0.36369225
+  mWidth: 0.3839184
   mHeight: 1
 --- !u!4 &700107205
 Transform:
@@ -451,7 +451,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: shuttleMaterial
+  m_Name: ImageTargetPlan2Material
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -464,7 +464,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 44c3f24ac3284de4b979f7eb028a231b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 56dc75c4958e45528338b22952b324eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -487,7 +487,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.28414378, y: 0, z: 0.5}
+      m_Extent: {x: 0.4960795, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -540,7 +540,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 4b7b91be00000000000000bf000000000000803f0000000000000000000000004b7b91be000000000000003f000000000000803f00000000000000000000803f4b7b913e00000000000000bf000000000000803f000000000000803f000000004b7b913e000000000000003f000000000000803f000000000000803f0000803f
+    _typelessdata: 22fefdbe00000000000000bf000000000000803f00000000000000000000000022fefdbe000000000000003f000000000000803f00000000000000000000803f22fefd3e00000000000000bf000000000000803f000000000000803f0000000022fefd3e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -606,7 +606,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: landingstrip_markMaterial
+  m_Name: IMG_3367Material
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -619,7 +619,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 933f979e150e4c22bffe0f1711bea33b, type: 3}
+        m_Texture: {fileID: 2800000, guid: f20e884d322742c595443be7e5a73795, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1799858544}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1826476478, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: 
@@ -718,7 +718,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1799858544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -55.9, z: -163.8}
+  m_LocalPosition: {x: -8.3, y: 115, z: -104}
   m_LocalScale: {x: 1.045304, y: 1.045304, z: 1.045304}
   m_Children: []
   m_Father: {fileID: 0}
@@ -819,15 +819,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: shuttle
+  mTrackableName: ImageTargetPlan2
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/Assignment1_v1.xml
+  mDataSetPath: Vuforia/Assignment0.xml
   mExtendedTracking: 0
-  mAspectRatio: 1.7596725
+  mAspectRatio: 1.007903
   mImageTargetType: 0
-  mWidth: 0.56828755
-  mHeight: 1
+  mWidth: 1
+  mHeight: 1.007903
 --- !u!4 &1918284954
 Transform:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ Transform:
   m_GameObject: {fileID: 1918284948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.41, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.007903, y: 1.007903, z: 1.007903}
   m_Children:
   - {fileID: 889496554}
   m_Father: {fileID: 0}

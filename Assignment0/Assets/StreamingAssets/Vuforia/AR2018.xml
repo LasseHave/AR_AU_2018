@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="IMG_3367" size="1.000000 2.604720" />
+    <ImageTarget name="tie-fighter2-improved" size="0.030000 0.043437" />
+    <ImageTarget name="te-fighter-improved" size="0.031000 0.041383" />
     <ImageTarget name="IMG_00118DE5D7F6-1" size="1.000000 1.778667" />
     <ImageTarget name="asteroid-clipart-3" size="1.000000 1.058442" />
     <ImageTarget name="avatar-cartoon-sunglasses-clipart-2" size="1.000000 0.847000" />
