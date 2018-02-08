@@ -34,6 +34,7 @@ public class FalconCannon : MonoBehaviour
             shoot_flag = true;
         else
             shoot_flag = false;
+
     }
 
     // Will be called after all regular rendering is done
@@ -61,7 +62,11 @@ public class FalconCannon : MonoBehaviour
             else
                 hasCollided = false;
         }
+        else
+            hasCollided = false;
     }
+
+  
 
     static void CreateLineMaterial()
     {
