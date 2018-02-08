@@ -25,7 +25,7 @@ public class SpaceShuttle : MonoBehaviour {
 		var dot = Vector3.Dot(transform.forward, landingStrip.transform.forward);
 		var normalizedDot = (dot + 1) / 2;
 
-		quadRenderer.material.color = Color.Lerp (green, red, Mathf.Round(normalizedDot, 1));
+		quadRenderer.material.color = Color.Lerp (green, red, normalizedDot);
 
         Debug.Log("Shuttle pos: " + this.transform.position.normalized);
         Debug.Log("Landing Pos: " + landingStrip.transform.position.normalized);
