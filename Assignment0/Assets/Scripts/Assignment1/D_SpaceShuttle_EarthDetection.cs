@@ -9,7 +9,7 @@ public class D_SpaceShuttle_EarthDetection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		earth = GameObject.Find ("Earth");
-		nose = GameObject.Find ("SpaceShuttleNose");
+		nose = GameObject.Find ("SpaceShuttle");
 		testText = "Init";
 	}
 
@@ -20,9 +20,7 @@ public class D_SpaceShuttle_EarthDetection : MonoBehaviour {
 
 		var worldCoords = nose4*earth4; // Multiply as of the slides 
 
-		Debug.Log ("Magnitude: " + earth.transform.localScale.magnitude);
-		Debug.Log ("World: " + worldCoords.GetColumn(3));
-		Debug.Log ("Nose: " + nose4.GetColumn(3));
+
 
 		string hemisphere = CalculateHemisphere (worldCoords, nose4);
 		testText = hemisphere;
@@ -39,6 +37,11 @@ public class D_SpaceShuttle_EarthDetection : MonoBehaviour {
 		if (worldCoords.GetColumn (3) [1] > 1) {
 			return "Y is too big!";
 		}
+
+		Debug.Log ("Magnitude: " + earth.transform.localScale.magnitude);
+		Debug.Log ("World: " + worldCoords.GetColumn(3)[2]);
+		Debug.Log ("Dist: " + GetDistance(worldCoords, targetCoords));
+
 		if (GetDistance(worldCoords, targetCoords) < earth.transform.localScale.magnitude) {
 			if (worldCoords.GetColumn (3) [2] >= 0.45) { // Is the Z coordinate larger than zero
 				return "North";
