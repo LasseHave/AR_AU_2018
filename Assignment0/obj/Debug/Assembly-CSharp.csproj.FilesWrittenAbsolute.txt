@@ -86,3 +86,7 @@
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/Unity.Cecil.Mdb.dll
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.xml
+/Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll
+/Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll.mdb
