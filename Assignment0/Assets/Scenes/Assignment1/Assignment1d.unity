@@ -219,15 +219,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: test
+  mTrackableName: shuttle_improved
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/AR2018.xml
+  mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 1.732138
+  mAspectRatio: 1.732143
   mImageTargetType: 0
   mWidth: 0.058
-  mHeight: 0.100464
+  mHeight: 0.10046429
 --- !u!4 &74225873
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 74225866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.149, y: 0, z: 0}
-  m_LocalScale: {x: 0.100464, y: 0.100464, z: 0.100464}
+  m_LocalScale: {x: 0.10046429, y: 0.10046429, z: 0.10046429}
   m_Children:
   - {fileID: 1929542265}
   m_Father: {fileID: 0}
@@ -339,12 +339,12 @@ MonoBehaviour:
   mTrackableName: Earth
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/Assignment1_v1.xml
+  mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 0.99611056
+  mAspectRatio: 0.996109
   mImageTargetType: 0
   mWidth: 0.19
-  mHeight: 0.189261
+  mHeight: 0.1892607
 --- !u!4 &576327219
 Transform:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 0, z: 0.49805528}
+      m_Extent: {x: 0.5, y: 0, z: 0.4980545}
   m_Shapes:
     vertices: []
     shapes: []
@@ -428,7 +428,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 000000bf000000001a01ffbe00000000ffff7f3f000000000000000000000000000000bf000000001a01ff3e00000000ffff7f3f00000000000000000000803f0000003f000000001a01ffbe00000000ffff7f3f000000000000803f000000000000003f000000001a01ff3e00000000ffff7f3f000000000000803f0000803f
+    _typelessdata: 000000bf000000000001ffbe00000000ffff7f3f000000000000000000000000000000bf000000000001ff3e00000000ffff7f3f00000000000000000000803f0000003f000000000001ffbe00000000ffff7f3f000000000000803f000000000000003f000000000001ff3e00000000ffff7f3f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -593,7 +593,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: testMaterial
+  m_Name: shuttle_improvedMaterial
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -606,7 +606,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3f9dba5b718f402c9fd15d0bfd9a17d1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dc251a5112a4315a34357b7bda97931, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -631,7 +631,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 97cecbc6c5fb4ef098be4568c15b9a2b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b1308f1b8d14e8c91a271f9d1fc0036, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -747,7 +747,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.2886606, y: 0, z: 0.5}
+      m_Extent: {x: 0.28865975, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -800,7 +800,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 52cb93be00000000000000bf000000000000803f00000000000000000000000052cb93be000000000000003f000000000000803f00000000000000000000803f52cb933e00000000000000bf000000000000803f000000000000803f0000000052cb933e000000000000003f000000000000803f000000000000803f0000803f
+    _typelessdata: 36cb93be00000000000000bf000000000000803f00000000000000000000000036cb93be000000000000003f000000000000803f00000000000000000000803f36cb933e00000000000000bf000000000000803f000000000000803f0000000036cb933e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
