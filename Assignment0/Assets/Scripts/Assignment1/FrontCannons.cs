@@ -5,7 +5,7 @@ using UnityEngine;
 public class FrontCannons : MonoBehaviour
 {
 
-    public GameObject Falcon_Object, FrontCannon1, FrontCannon2;
+    public GameObject Falcon_Object, FrontCannon1, FrontCannon2, MainCannon, MainCannonTop;
 
     // Use this for initialization
     void Start()
@@ -13,6 +13,8 @@ public class FrontCannons : MonoBehaviour
         Falcon_Object = GameObject.Find("Falcon");
         FrontCannon1 = GameObject.Find("FrontCannon1");
         FrontCannon2 = GameObject.Find("FrontCannon2");
+        MainCannon = GameObject.Find("MainCannon");
+        MainCannonTop = GameObject.Find("MainCannonTop");
 
     }
 
@@ -34,6 +36,27 @@ public class FrontCannons : MonoBehaviour
         FrontCannon1.transform.position = FinaleLocal1.GetColumn(3);
         FrontCannon2.transform.position = FinaleLocal2.GetColumn(3);
         //   */
+
+        // METHOD 2  - WORKS BEST
+        FrontCannon1.transform.position = Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(
+            0.004F * (1F / (Falcon_Object.transform.localScale.x)),
+            0,
+            0.048F * (1F / (Falcon_Object.transform.localScale.z))));
+        FrontCannon2.transform.position = Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(
+            -0.004F * (1F / (Falcon_Object.transform.localScale.x)),
+            0,
+            0.048F * (1F / (Falcon_Object.transform.localScale.z))));
+
+        MainCannon.transform.position = Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(
+             0,
+             0.025F / 2 * (1F / (Falcon_Object.transform.localScale.y)),
+             -0.009F * (1F / (Falcon_Object.transform.localScale.z))));
+
+        MainCannonTop.transform.position = Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(
+      0,
+      0.025F * (1F / (Falcon_Object.transform.localScale.y)),
+      -0.009F * (1F / (Falcon_Object.transform.localScale.z))));
+
         /*
          // METHOD 2  - WORKS BEST
          FrontCannon1.transform.position = Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(
@@ -59,6 +82,8 @@ public class FrontCannons : MonoBehaviour
         // Set cannons rotation
         FrontCannon1.transform.rotation = Falcon_Object.transform.rotation;
         FrontCannon2.transform.rotation = Falcon_Object.transform.rotation;
+        MainCannon.transform.rotation = Falcon_Object.transform.rotation;
+        MainCannonTop.transform.rotation = Falcon_Object.transform.rotation;
         //  Debug.Log("Cannon1Pos: " + FrontCannon1.transform.position);
         //  Debug.Log("Cannon1_TPos: " + (Falcon_Object.transform.position + new Vector3(0.04F, 0, 0.007F)));
         //  Debug.Log("Cannon1_RPos: " + (Falcon_Object.transform.localToWorldMatrix.MultiplyPoint3x4(new Vector3(0.048F, 0, -0.004F))));
