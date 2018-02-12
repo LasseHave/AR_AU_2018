@@ -131,18 +131,18 @@ public class FalconCannons : MonoBehaviour
         }
     }
     // Visualize the laser rays using GL
-    private void VisualizeRay(GameObject FrontCannon)
+    private void VisualizeRay(GameObject gameObject)
     {
         GL.Begin(GL.LINES);
         GL.Color(Color.red);
-        GL.Vertex(FrontCannon.transform.position);
-        GL.Vertex(FrontCannon.transform.position + FrontCannon.transform.forward * rayLenght);
+        GL.Vertex(gameObject.transform.position);
+        GL.Vertex(gameObject.transform.position + gameObject.transform.forward * rayLenght);
         GL.End();
     }
     // Do the actual object deteciton with the physics Ray
-    private void ShootRay(GameObject FrontCannon)
+    private void ShootRay(GameObject gameObject)
     {
-        if (Physics.Raycast(FrontCannon.transform.position, FrontCannon.transform.forward, out hit, rayLenght))
+        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, rayLenght))
             PerformExplosion(hit.point);
         else
             holdFire = true;

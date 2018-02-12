@@ -226,8 +226,8 @@ MonoBehaviour:
   mExtendedTracking: 0
   mAspectRatio: 1.732143
   mImageTargetType: 0
-  mWidth: 0.058
-  mHeight: 0.10046429
+  mWidth: 0.063
+  mHeight: 0.10912501
 --- !u!4 &74225873
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 74225866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.149, y: 0, z: 0}
-  m_LocalScale: {x: 0.10046429, y: 0.10046429, z: 0.10046429}
+  m_LocalScale: {x: 0.10912501, y: 0.10912501, z: 0.10912501}
   m_Children:
   - {fileID: 1929542265}
   m_Father: {fileID: 0}
@@ -724,7 +724,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1929542264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.45}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4092}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 74225873}

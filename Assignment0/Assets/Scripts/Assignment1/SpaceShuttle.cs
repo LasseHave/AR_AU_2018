@@ -8,12 +8,10 @@ public class SpaceShuttle : MonoBehaviour {
 	public GameObject quad;
 
 	private Renderer quadRenderer;
-
-	private Color red = new Color(255, 0, 0);
-	private Color green = new Color(0, 255, 0);
-
+    
 	// Use this for initialization
 	void Start () {
+        // Find objects
         landingStrip = GameObject.Find("LandingStrip");
         quad = GameObject.Find("Quad");
         quadRenderer = quad.GetComponent<Renderer>();
@@ -22,18 +20,15 @@ public class SpaceShuttle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Calculate dot products on forward vectors and right vectors (x,z axies)
 		var forwardDot = Vector3.Dot(transform.forward, landingStrip.transform.forward);
 		var rightDot = Vector3.Dot(transform.right, landingStrip.transform.right);
-
+        // Combine the dot products for color status
 		var t = Mathf.Clamp01 (forwardDot * rightDot);
-
+        // Define the color from red towards green as dot product approach 1
 		var color = new Color ((1 - t), t, 0);
+        // Set color
 		quadRenderer.material.color = color;
 
-		Debug.Log (t);
-		Debug.Log ("255 * (1 - " + t + "), 255 * t, 0");
-		Debug.Log (color);
-        Debug.Log("forwardDot: " + forwardDot);
-        Debug.Log("rightDow: " + rightDot);
 	}
 }
