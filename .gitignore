@@ -5,8 +5,8 @@
 /[Bb]uild/
 /[Bb]uilds/
 /Assets/AssetStoreTools*
-/Assets/MatDisplay/
-/Assets/OpenCVForUnity/
+/Assignment0/Assets/MatDisplay/*
+/Assignment0/Assets/OpenCVForUnity/*
 
 # Visual Studio 2015 cache directory
 /.vs/
