@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MeshGenerateSpaceShip : MonoBehaviour
 {
-
+    bool blink = false;
+    int frame_counter;
     float width;
     float height;
     Mesh mesh;
@@ -25,7 +26,7 @@ public class MeshGenerateSpaceShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        frame_counter +=1;
         mesh.Clear();
 
         mesh.vertices = new Vector3[] {
@@ -36,7 +37,7 @@ public class MeshGenerateSpaceShip : MonoBehaviour
             new Vector3(3, 0, 2), new Vector3(2, 0, 3), new Vector3(3, 0, 3),// Point 12,13,14
             new Vector3(2, 0, 4), new Vector3(3, 0, 4), new Vector3(2.5F, 0, 5)// Point 15,16,17
         };
-        
+
         Vector3[] vertices = mesh.vertices;
         Vector2[] uvs = new Vector2[vertices.Length];
 
@@ -65,19 +66,43 @@ public class MeshGenerateSpaceShip : MonoBehaviour
         14, 15, 16,
         15, 17, 16
     };
-        /*Vector3[] normals = new Vector3[4];
+           // create new colors array where the colors will be created.
+        Color[] colors = new Color[vertices.Length];
 
-        normals[0] = -Vector3.forward;
-        normals[1] = -Vector3.forward;
-        normals[2] = -Vector3.forward;
-        normals[3] = -Vector3.forward;
+        for (int i = 0; i < vertices.Length; i++)
+            colors[i] = Color.Lerp(Color.grey, new Color(0.68F,0.68F,0.68F), vertices[i].z / 5F);
 
-        mesh.normals = normals;
-        */
-        Debug.Log("here");
+        colors[17] = Color.black;
+         //    mesh.RecalculateNormals();
+        if (frame_counter > 5)
+        {
+            if (blink)
+                blink = false;
+            else
+                blink = true;
+            frame_counter = 0;
+            Debug.Log(Time.time);
+            Debug.Log("here");
+        
+        } // assign the array of colors to the Mesh.
+        if (blink)
+            colors[7] = Color.yellow;
+        else
+            colors[7] = new Color(1F, 0.4F, 0F);
+        mesh.colors = colors;
+        mesh.RecalculateNormals();
     }
 
 }
+/*  Vector3[] normals = new Vector3[4];
+
+     normals[0] = -Vector3.forward;
+     normals[1] = -Vector3.forward;
+     normals[2] = -Vector3.forward;
+     normals[3] = -Vector3.forward;
+
+     mesh.normals = normals;
+     */
 /* Vector3[] vertricies = new Vector3[4];
  vertricies[0] = new Vector3(0, 0, 0);
  vertricies[1] = new Vector3(1, 0, 0);
