@@ -10,6 +10,7 @@ public class visual_b : MonoBehaviour {
 	Mat cameraImageMat;
 	Mat cameraImageBlurMat = new Mat();
 
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -30,9 +31,6 @@ public class visual_b : MonoBehaviour {
 			byte[] pixels = cameraImageRaw.Pixels;
 			cameraImageMat.put (0, 0, pixels);
 			Imgproc.cvtColor (cameraImageMat, grayScale, Imgproc.COLOR_RGB2GRAY);
-
-			//MatDisplay.DisplayMat (cameraImageMat, MatDisplaySettings.BOTTOM_LEFT);
-			//Imgproc.blur(cameraImageMat, cameraImageBlurMat, new Size(12,12));
 			MatDisplay.DisplayMat (grayScale, MatDisplaySettings.FULL_BACKGROUND);
 		}
 	}
