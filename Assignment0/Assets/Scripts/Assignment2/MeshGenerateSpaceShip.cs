@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MeshGenerateSpaceShip : MonoBehaviour
 {
-    bool blink = false;
+    bool blink = false, direction_control = true;
     int frame_counter;
+    float wing_counter = 0F;
     float width;
     float height;
     Mesh mesh;
@@ -26,18 +27,29 @@ public class MeshGenerateSpaceShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (wing_counter >= 1)
+            direction_control = true;
+        else if (wing_counter <= -1)
+            direction_control = false;
+        
+        if (direction_control) 
+            wing_counter = wing_counter - 1/60F;
+        else
+            wing_counter = wing_counter + 1/60F;
+
         frame_counter +=1;
         mesh.Clear();
 
-        mesh.vertices = new Vector3[] {
-            new Vector3(0, 0, 0), new Vector3(1, 0, 1), new Vector3(1, 0, 0), // Point 0,1,2
-            new Vector3(2, 0, 0), new Vector3(2, 0, 1), new Vector3(2, 0, 2), // Point 3,4,5
-            new Vector3(3, 0, 0), new Vector3(2.5F, 0, -1), new Vector3(3, 0, 1),// Point 6,7,8
-            new Vector3(4, 0, 0), new Vector3(4, 0, 1), new Vector3(5, 0, 0),// Point 9,10,11
-            new Vector3(3, 0, 2), new Vector3(2, 0, 3), new Vector3(3, 0, 3),// Point 12,13,14
-            new Vector3(2, 0, 4), new Vector3(3, 0, 4), new Vector3(2.5F, 0, 5)// Point 15,16,17
-        };
+        Vector3[] temp_update = new Vector3[2];
+        int[] temp_update_index = new int[2];
+        temp_update_index[0] = 0;
+        temp_update[0] = new Vector3(0, wing_counter, 0);
+        temp_update_index[1] = 11;
+        temp_update[1] = new Vector3(5, wing_counter, 0);
+   
 
+        mesh.vertices = Space_ship_mesh(temp_update_index, temp_update);
+   
         Vector3[] vertices = mesh.vertices;
         Vector2[] uvs = new Vector2[vertices.Length];
 
@@ -91,6 +103,29 @@ public class MeshGenerateSpaceShip : MonoBehaviour
             colors[7] = new Color(1F, 0.4F, 0F);
         mesh.colors = colors;
         mesh.RecalculateNormals();
+    }
+
+    public Vector3[] Space_ship_mesh(int[] index,  Vector3[] vector3)
+    {
+        int count = 0;
+        Vector3[] vertices_temp = new Vector3[] {
+            new Vector3(0, 0, 0), new Vector3(1, 0, 1), new Vector3(1, 0, 0), // Point 0,1,2
+            new Vector3(2, 0, 0), new Vector3(2, 0, 1), new Vector3(2, 0, 2), // Point 3,4,5
+            new Vector3(3, 0, 0), new Vector3(2.5F, 0, -1), new Vector3(3, 0, 1),// Point 6,7,8
+            new Vector3(4, 0, 0), new Vector3(4, 0, 1), new Vector3(5, 0, 0),// Point 9,10,11
+            new Vector3(3, 0, 2), new Vector3(2, 0, 3), new Vector3(3, 0, 3),// Point 12,13,14
+            new Vector3(2, 0, 4), new Vector3(3, 0, 4), new Vector3(2.5F, 0, 5)// Point 15,16,17
+        };
+
+
+
+        foreach (var integer in index)
+        {
+            vertices_temp[integer] = vector3[count];
+            count++;
+        }
+
+        return vertices_temp;
     }
 
 }
