@@ -46,6 +46,7 @@ MonoBehaviour:
     dataSetsToLoad:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assigment2_mesh
     - Assignment1_v4
     - Assignment1_v2
     - VuforiaMars_ModelTarget
@@ -56,6 +57,7 @@ MonoBehaviour:
     dataSetsToActivate:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assigment2_mesh
     - Assignment1_v4
     - Assignment1_v2
     - Assignment0

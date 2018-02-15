@@ -21,9 +21,9 @@
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-				fixed4 color : COLOR; // Add color 
+				float4 vertex : POSITION; // Get position from mesh
+				float2 uv : TEXCOORD0; // Get texture coordinates from mesh
+				fixed4 color : COLOR; // Add color from mesh
 			};
 
 			struct v2f
@@ -37,17 +37,17 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			
-			v2f vert (appdata v)
+			v2f vert (appdata v) 
 			{
 				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex); // Transform from local to normalized coordinates
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				UNITY_TRANSFER_FOG(o,o.vertex);
 				o.color = v.color; // Set color
 				return o;
 			}
 			
-			fixed4 frag (v2f i) : SV_Target
+			fixed4 frag (v2f i) : SV_Target  // Fragment Shader
 			{
 			/*
 				// sample the texture

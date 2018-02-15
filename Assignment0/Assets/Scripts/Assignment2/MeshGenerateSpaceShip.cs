@@ -7,10 +7,7 @@ public class MeshGenerateSpaceShip : MonoBehaviour
     bool blink = false, direction_control = true;
     int frame_counter;
     float wing_counter = 0F;
-    float width;
-    float height;
     Mesh mesh;
-    MeshFilter meshFilter;
 
     // Use this for initialization
     void Start()
