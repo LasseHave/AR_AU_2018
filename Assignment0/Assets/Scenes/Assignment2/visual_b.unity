@@ -748,6 +748,10 @@ Prefab:
       propertyPath: m_Name
       value: Skull
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 61b5e4b4cef6048f294a416e0814351f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 74d2eea43007447fea69140016db88ed, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61b5e4b4cef6048f294a416e0814351f, type: 3}
   m_IsPrefabParent: 0
