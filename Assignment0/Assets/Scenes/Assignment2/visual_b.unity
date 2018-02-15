@@ -200,7 +200,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e50dd35d001ca4ceba18d00ce9fb562b, type: 2}
+  - {fileID: 2100000, guid: 74d2eea43007447fea69140016db88ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -314,7 +314,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456851661}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.339}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -337,7 +337,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: avatar-cartoon-sunglasses-clipart-2Material
+  m_Name: shuttle_improvedMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -378,7 +378,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dc19a4c015fd48d0850112146196eab8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dc251a5112a4315a34357b7bda97931, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -450,7 +450,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 0, z: 0.4235}
+      m_Extent: {x: 0.28865975, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -503,7 +503,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 000000bf00000000fed4d8be000000000000803f000000000000000000000000000000bf00000000fed4d83e000000000000803f00000000000000000000803f0000003f00000000fed4d8be000000000000803f000000000000803f000000000000003f00000000fed4d83e000000000000803f000000000000803f0000803f
+    _typelessdata: 36cb93be00000000000000bf000000000000803f00000000000000000000000036cb93be000000000000003f000000000000803f00000000000000000000803f36cb933e00000000000000bf000000000000803f000000000000803f0000000036cb933e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -576,7 +576,6 @@ GameObject:
   - component: {fileID: 1526827606}
   - component: {fileID: 1526827605}
   - component: {fileID: 1526827604}
-  - component: {fileID: 1526827610}
   m_Layer: 0
   m_Name: ImageTarget
   m_TagString: Untagged
@@ -658,15 +657,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: avatar-cartoon-sunglasses-clipart-2
+  mTrackableName: shuttle_improved
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/AR2018.xml
+  mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 0.847
+  mAspectRatio: 1.732143
   mImageTargetType: 0
-  mWidth: 0.11
-  mHeight: 0.09317
+  mWidth: 0.5773195
+  mHeight: 1
 --- !u!4 &1526827609
 Transform:
   m_ObjectHideFlags: 0
@@ -675,24 +674,12 @@ Transform:
   m_GameObject: {fileID: 1526827603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 289642434}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1526827610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526827603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cab000fa19ccd4c6b8c9d3ca5bed257f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rend: {fileID: 0}
 --- !u!1001 &1778064895
 Prefab:
   m_ObjectHideFlags: 0
