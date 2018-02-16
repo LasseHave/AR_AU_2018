@@ -5,8 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MeshGenerateTerrain : MonoBehaviour
 {
-    private GameObject Controller, Base;
-    private Mesh mesh;
+    public GameObject Controller, Base;
+    public Mesh mesh;
     // Use this for initialization
     void Start()
     {
@@ -20,60 +20,53 @@ public class MeshGenerateTerrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mesh = generateMeshMatrix(4, 4, mesh);
+        float xCord = Controller.transform.position.x;
+        float zCord = Controller.transform.position.z;
+        mesh = generateMeshMatrix(xCord, zCord, mesh);
     }
 
-    public Mesh generateMeshMatrix(float x, float z, Mesh mesh) // x,y are the lengths of the square making
+        public Mesh generateMeshMatrix(float x, float z, Mesh mesh) // x,y are the lengths of the square making
     {
         mesh.Clear();
-        int xint = (int)Mathf.Round(x);
-        int zint = (int)Mathf.Round(z);
-        int counter = 0;
-        int vertexCount = (xint+1)* (zint+1);
-        int triangleCount = xint * zint * 2 * 3;
-        Vector3[] vertricies = new Vector3[vertexCount];
-        int[] triangles = new int[triangleCount];
+        int xint = (int)Mathf.Floor(x);
+        int zint = (int)Mathf.Floor(z);
+        //int vertexCount = (xint+1)* (zint+1);
+        //int triangleCount = xint * zint * 2 * 3;
+        List<Vector3> verticesList = new List<Vector3>();
+        List<int> triangles = new List<int>();
 
         // Generate vertricies
         for (int i = 0; i <= xint; i++)
         {
             for (int j = 0; j <= zint; j++)
             {
-                vertricies[counter] = new Vector3(i, 0, j);
-                counter++;
+                verticesList.Add(new Vector3(i, 0, j));
             }
         }
-        counter = 0;
         // Generate triangles
         for (int i = 0; i <= xint - 1; i++)
         {
             for (int j = 0; j <= zint - 1; j++)
             {
-                triangles[counter] = i * (xint+1) + j;
-                counter++;
-                triangles[counter] = (i + 1) * (xint + 1) + (j + 1);
-                counter++;
-                triangles[counter] = (i + 1) * (xint + 1) + j;
-                counter++;
-                triangles[counter] = i * (xint + 1) + j;
-                counter++;
-                triangles[counter] = i * (xint + 1) + (j + 1);
-                counter++;
-                triangles[counter] = (i + 1) * (xint + 1) + (j + 1);
-                counter++;
+                triangles.Add(i * (zint + 1) + j);
+                triangles.Add((i) * (zint + 1) + (j+1));
+                triangles.Add((i + 1) * (zint + 1) + (j));
+                triangles.Add(i * (zint + 1) + (j+1));
+                triangles.Add((i + 1) * (zint + 1) + (j + 1));
+                triangles.Add((i + 1) * (zint + 1) + (j));
             }
         }
         // Draw uv
-        Vector2[] uvs = new Vector2[vertricies.Length];
+        Vector2[] uvs = new Vector2[verticesList.Count];
 
         for (int i = 0; i < uvs.Length; i++)
         {
-            uvs[i] = new Vector2(vertricies[i].x, vertricies[i].z);
+            uvs[i] = new Vector2(verticesList[i].x, verticesList[i].z);
         }
         // set values
-        mesh.vertices = vertricies;
+        mesh.vertices = verticesList.ToArray();
         mesh.uv = uvs;
-        mesh.triangles = triangles;
+        mesh.triangles = triangles.ToArray();
         // Return mesh
         return mesh;
     }
