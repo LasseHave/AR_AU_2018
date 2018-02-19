@@ -11,6 +11,7 @@ public class MeshGenerateTerrain : MonoBehaviour
     public Mesh mesh;
     public ImageTargetBehaviour image_base, image_controller;
     private Mat heightMap;
+    public Renderer rend;
     private byte[] data = new byte[1];
     // Use this for initialization
     void Start()
@@ -25,6 +26,7 @@ public class MeshGenerateTerrain : MonoBehaviour
         Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/height_map1.jpg");
         heightMap = new Mat();
         Imgproc.cvtColor(heightMapImg, heightMap, Imgproc.COLOR_RGB2GRAY);
+        rend = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -82,6 +84,7 @@ public class MeshGenerateTerrain : MonoBehaviour
             uvs[i] = new Vector2(verticesList[i].x, verticesList[i].z);
         }
         // set values
+        rend.material.mainTextureScale = new Vector2((float)1/(xint/10), (float)1/(zint/10));
         mesh.vertices = verticesList.ToArray();
         mesh.uv = uvs;
         mesh.triangles = triangles.ToArray();
