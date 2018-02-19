@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class MeshGenerateTerrain : MonoBehaviour
 {
     public GameObject Controller, Base;
@@ -23,7 +23,7 @@ public class MeshGenerateTerrain : MonoBehaviour
         Base = GameObject.Find("Terrain_base");
         image_base = Base.GetComponent<ImageTargetBehaviour>();
         image_controller = Controller.GetComponent<ImageTargetBehaviour>();
-        Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/mars_mgs_molaS.jpg");
+        Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/mars_height_2.jpg");
         heightMap = new Mat();
         Imgproc.cvtColor(heightMapImg, heightMap, Imgproc.COLOR_RGB2GRAY);
         rend = GetComponent<Renderer>();
@@ -33,23 +33,26 @@ public class MeshGenerateTerrain : MonoBehaviour
     void Update()
     {
         MatDisplay.SetCameraFoV(41.5f);
-        //if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
-        //{
+        if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
+        {
         float xCord = Controller.transform.position.x;
-            float zCord = Controller.transform.position.z;
-            int controller_rot = (int)Controller.transform.rotation.eulerAngles.y;
-            int resolution = 50;
+        float zCord = Controller.transform.position.z;
+        int controller_rot = (int)Controller.transform.rotation.eulerAngles.y;
+        int resolution = 200;
+        if (xCord > 0 && zCord > 0)
+        {
             mesh = generateMeshMatrix(xCord, zCord, controller_rot, resolution, mesh);
-        //} else
-        //{
-        //    mesh.Clear();
-        //}
+        }
+       } else
+        {
+            mesh.Clear();
+        }
     }
 
-        public Mesh generateMeshMatrix(float x, float z, int rot, int resolution, Mesh mesh) // x,y are the lengths of the square making
+    public Mesh generateMeshMatrix(float x, float z, int rot, int resolution, Mesh mesh) // x,y are the lengths of the square making
     {
         mesh.Clear();
-        rot = Mathf.Max(Mathf.Min(rot,90), 1);
+        rot = Mathf.Max(Mathf.Min(rot, 180), 1);
         int xint = (int)Mathf.Round(x * resolution);
         int zint = (int)Mathf.Round(z * resolution);
         //int vertexCount = (xint+1)* (zint+1);
@@ -62,10 +65,14 @@ public class MeshGenerateTerrain : MonoBehaviour
         {
             for (int j = 0; j <= zint; j++)
             {
-                heightMap.get((int)(i/(xint/360F)), (int)(j/(zint/360F)), data);
+                
+                heightMap.get((int)i, (int)j, data);
                 float heightVal = (data[0] - 128) / 255F;
                 heightVal = Mathf.Max(Mathf.Min(heightVal, 1), 0);
-                verticesList.Add(new Vector3((float)i/resolution, heightVal*(rot/180F), (float)j/resolution));
+
+
+
+                verticesList.Add(new Vector3((float)i / resolution, heightVal * (rot / 360F), (float)j / resolution));
             }
         }
         // Generate triangles
@@ -74,9 +81,9 @@ public class MeshGenerateTerrain : MonoBehaviour
             for (int j = 0; j <= zint - 1; j++)
             {
                 triangles.Add(i * (zint + 1) + j);
-                triangles.Add((i) * (zint + 1) + (j+1));
+                triangles.Add((i) * (zint + 1) + (j + 1));
                 triangles.Add((i + 1) * (zint + 1) + (j));
-                triangles.Add(i * (zint + 1) + (j+1));
+                triangles.Add(i * (zint + 1) + (j + 1));
                 triangles.Add((i + 1) * (zint + 1) + (j + 1));
                 triangles.Add((i + 1) * (zint + 1) + (j));
             }
@@ -89,7 +96,7 @@ public class MeshGenerateTerrain : MonoBehaviour
             uvs[i] = new Vector2(verticesList[i].x, verticesList[i].z);
         }
         // set values
-        rend.material.mainTextureScale = new Vector2(1/((float)x), 1/((float)z));
+        rend.material.mainTextureScale = new Vector2( 1/((float)x) * ((x * resolution)/heightMap.rows()),  1/((float)z) * ((z * resolution) / heightMap.cols()));
         mesh.vertices = verticesList.ToArray();
         mesh.uv = uvs;
         mesh.triangles = triangles.ToArray();
