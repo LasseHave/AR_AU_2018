@@ -23,7 +23,7 @@ public class MeshGenerateTerrain : MonoBehaviour
         Base = GameObject.Find("Terrain_base");
         image_base = Base.GetComponent<ImageTargetBehaviour>();
         image_controller = Controller.GetComponent<ImageTargetBehaviour>();
-        Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/height_map1.jpg");
+        Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/mars_mgs_molaS.jpg");
         heightMap = new Mat();
         Imgproc.cvtColor(heightMapImg, heightMap, Imgproc.COLOR_RGB2GRAY);
         rend = GetComponent<Renderer>();
@@ -32,22 +32,26 @@ public class MeshGenerateTerrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MatDisplay.SetCameraFoV(41.5f);
         //if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
         //{
-            float xCord = Controller.transform.position.x;
+        float xCord = Controller.transform.position.x;
             float zCord = Controller.transform.position.z;
-            mesh = generateMeshMatrix(xCord, zCord, mesh);
+            int controller_rot = (int)Controller.transform.rotation.eulerAngles.y;
+            int resolution = 50;
+            mesh = generateMeshMatrix(xCord, zCord, controller_rot, resolution, mesh);
         //} else
         //{
         //    mesh.Clear();
         //}
     }
 
-        public Mesh generateMeshMatrix(float x, float z, Mesh mesh) // x,y are the lengths of the square making
+        public Mesh generateMeshMatrix(float x, float z, int rot, int resolution, Mesh mesh) // x,y are the lengths of the square making
     {
         mesh.Clear();
-        int xint = (int)Mathf.Round(x*10);
-        int zint = (int)Mathf.Round(z*10);
+        rot = Mathf.Max(Mathf.Min(rot,90), 1);
+        int xint = (int)Mathf.Round(x * resolution);
+        int zint = (int)Mathf.Round(z * resolution);
         //int vertexCount = (xint+1)* (zint+1);
         //int triangleCount = xint * zint * 2 * 3;
         List<Vector3> verticesList = new List<Vector3>();
@@ -58,9 +62,10 @@ public class MeshGenerateTerrain : MonoBehaviour
         {
             for (int j = 0; j <= zint; j++)
             {
-                heightMap.get((int)i, (int)j, data);
+                heightMap.get((int)(i/(xint/360F)), (int)(j/(zint/360F)), data);
                 float heightVal = (data[0] - 128) / 255F;
-                verticesList.Add(new Vector3(i/10F, heightVal, j/10F));
+                heightVal = Mathf.Max(Mathf.Min(heightVal, 1), 0);
+                verticesList.Add(new Vector3((float)i/resolution, heightVal*(rot/180F), (float)j/resolution));
             }
         }
         // Generate triangles
@@ -84,10 +89,11 @@ public class MeshGenerateTerrain : MonoBehaviour
             uvs[i] = new Vector2(verticesList[i].x, verticesList[i].z);
         }
         // set values
-        rend.material.mainTextureScale = new Vector2((float)1/(xint/10), (float)1/(zint/10));
+        rend.material.mainTextureScale = new Vector2(1/((float)x), 1/((float)z));
         mesh.vertices = verticesList.ToArray();
         mesh.uv = uvs;
         mesh.triangles = triangles.ToArray();
+
         // Return mesh
         return mesh;
     }
