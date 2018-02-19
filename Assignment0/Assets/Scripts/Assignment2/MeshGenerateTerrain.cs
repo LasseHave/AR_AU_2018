@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using OpenCVForUnity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
@@ -9,6 +10,8 @@ public class MeshGenerateTerrain : MonoBehaviour
     public GameObject Controller, Base;
     public Mesh mesh;
     public ImageTargetBehaviour image_base, image_controller;
+    private Mat heightMap;
+    private byte[] data = new byte[1];
     // Use this for initialization
     void Start()
     {
@@ -19,20 +22,23 @@ public class MeshGenerateTerrain : MonoBehaviour
         Base = GameObject.Find("Terrain_base");
         image_base = Base.GetComponent<ImageTargetBehaviour>();
         image_controller = Controller.GetComponent<ImageTargetBehaviour>();
+        Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/height_map1.jpg");
+        heightMap = new Mat();
+        Imgproc.cvtColor(heightMapImg, heightMap, Imgproc.COLOR_RGB2GRAY);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
-        {
+        //if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
+        //{
             float xCord = Controller.transform.position.x;
             float zCord = Controller.transform.position.z;
             mesh = generateMeshMatrix(xCord, zCord, mesh);
-        } else
-        {
-            mesh.Clear();
-        }
+        //} else
+        //{
+        //    mesh.Clear();
+        //}
     }
 
         public Mesh generateMeshMatrix(float x, float z, Mesh mesh) // x,y are the lengths of the square making
@@ -50,7 +56,9 @@ public class MeshGenerateTerrain : MonoBehaviour
         {
             for (int j = 0; j <= zint; j++)
             {
-                verticesList.Add(new Vector3(i/10F, 0, j/10F));
+                heightMap.get((int)i, (int)j, data);
+                float heightVal = (data[0] - 128) / 255F;
+                verticesList.Add(new Vector3(i/10F, heightVal, j/10F));
             }
         }
         // Generate triangles
