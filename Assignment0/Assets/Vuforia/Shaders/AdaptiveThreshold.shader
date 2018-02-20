@@ -1,10 +1,10 @@
 Shader "Unlit/AdaptiveThreshold" {
 Properties{
-        _ContourColor("Contour Color", Color) = (1,1,1,1)
-        _SurfaceColor("Surface Color", Color) = (0.5,0.5,0.5,1)
-        _DepthThreshold("Depth Threshold", Float) = 0.002
+        _ContourColor("Contour Color", Color) = (1,1,1,1) // Define color of contours
+        _SurfaceColor("Surface Color", Color) = (0.5,0.5,0.5,1) // Define color of surfaces (not contours)
+        _DepthThreshold("Depth Threshold", Float) = 0.002 // Define color of contours
 
-        _Factor1 ("Factor 1", float) = 1
+        _Factor1 ("Factor 1", float) = 1 // Factors for noise, used in pseudorandom noise generation
         _Factor2 ("Factor 2", float) = 1
         _Factor3 ("Factor 3", float) = 1
         _Random("Random", float) = 0.1
@@ -15,13 +15,16 @@ Properties{
 
         Pass {
             Cull Back
-            Blend SrcAlpha OneMinusSrcAlpha
+            Blend SrcAlpha OneMinusSrcAlpha 
+            // SrcAlpha: The value of this stage is multiplied by the source alpha value.
+            // OnMinusSrcAlpha: The value of this stage is multiplied by (1 - source alpha).
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
 
+            // We define the variables here, which is the same as from the GUI in matlab
             uniform sampler2D _CameraDepthTexture;
             uniform float4 _ContourColor;
             uniform float4 _SurfaceColor;
@@ -32,6 +35,8 @@ Properties{
             float _Factor3;
             float _Random;
 
+            // struct of v2f (close to class)
+            // Includes, position, and coordinates for screen and depth
             struct v2f {
                 float4 pos : SV_POSITION;
                 float4 screenPos : TEXCOORD0;
