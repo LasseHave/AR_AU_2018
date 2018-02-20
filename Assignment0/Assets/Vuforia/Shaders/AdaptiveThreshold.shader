@@ -1,6 +1,6 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
- Shader "Unlit/GreyScale" {
+ Shader "Unlit/AdaptiveThreshold" {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" { }
 		_Factor1 ("Factor 1", float) = 1
