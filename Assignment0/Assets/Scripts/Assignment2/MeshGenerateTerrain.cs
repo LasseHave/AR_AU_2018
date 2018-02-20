@@ -13,42 +13,115 @@ public class MeshGenerateTerrain : MonoBehaviour
     private Mat heightMap;
     public Renderer rend;
     private byte[] data = new byte[1];
+    float xCord, zCord, oldxCord = 0, oldzCord = 0, minMovement = 0.1F;
+    int yawYDegree, worldImageSize = 3;
     // Use this for initialization
     void Start()
     {
+        // MESH
         mesh = GetComponent<MeshFilter>().mesh;
         mesh.Clear();
-
+        // Find controller and base
         Controller = GameObject.Find("Terrain_controller");
         Base = GameObject.Find("Terrain_base");
-        image_base = Base.GetComponent<ImageTargetBehaviour>();
         image_controller = Controller.GetComponent<ImageTargetBehaviour>();
+        image_base = Base.GetComponent<ImageTargetBehaviour>();
+        // Configure height map
         Mat heightMapImg = Imgcodecs.imread("Assets/Assignment2/Textures/HeightMaps/mars_height_2.jpg");
         heightMap = new Mat();
         Imgproc.cvtColor(heightMapImg, heightMap, Imgproc.COLOR_RGB2GRAY);
+        // Grab the render for stretching texture
         rend = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Set field of view
         MatDisplay.SetCameraFoV(41.5f);
+        // Only draw if both are tracked
         if (image_base.CurrentStatus == ImageTargetBehaviour.Status.TRACKED && image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
         {
-        float xCord = Controller.transform.position.x;
-        float zCord = Controller.transform.position.z;
-        int controller_rot = (int)Controller.transform.rotation.eulerAngles.y;
-        int resolution = 200;
-        if (xCord > 0 && zCord > 0)
-        {
-            mesh = generateMeshMatrix(xCord, zCord, controller_rot, resolution, mesh);
-        }
-       } else
+            xCord = Controller.transform.position.x;
+            zCord = Controller.transform.position.z;
+            // Only draw if we are in positve area
+            if (xCord > 0 && zCord > 0)
+            {
+                // Only draw if movement is larger than X and in the positive area
+                if (Mathf.Abs(xCord - oldxCord) > minMovement || Mathf.Abs(zCord - oldzCord) > minMovement)
+                {
+                    // Get controller angle
+                    yawYDegree = (int)Controller.transform.rotation.eulerAngles.y;
+                    // Generate the new mesh
+                    generateMesh(xCord, zCord, yawYDegree);
+                    oldxCord = xCord;
+                    oldzCord = zCord;
+                }
+            }
+        } else
         {
             mesh.Clear();
         }
     }
 
+    public void generateMesh(float x, float z, int yaw)
+    {
+        List<Vector3> verticesList = new List<Vector3>();
+        List<int> triangles = new List<int>();
+        // Clear mesh
+        mesh.Clear();
+
+        // Limit yaw angles 
+        yaw = Mathf.Max(Mathf.Min(yaw, 180), 1);
+
+        // Calculate amount of veriticies to be drawn
+        float verticesPrWorldCoordinate = heightMap.rows() / worldImageSize;
+        int xVertricies = (int)Mathf.Round(x * verticesPrWorldCoordinate);
+        int zVertricies = (int)Mathf.Round(z * verticesPrWorldCoordinate);
+
+        // Generate vertricies
+        for (int i = 0; i <= xVertricies; i++)
+        {
+            for (int j = 0; j <= zVertricies; j++)
+            {
+                // Get heigh value
+                heightMap.get(i,j, data);
+                float heightVal = (data[0] - 128) / 255F;
+                // Limit height 
+                heightVal = Mathf.Max(Mathf.Min(heightVal, 1), 0);
+                // Define verticy
+                verticesList.Add(new Vector3((float)i / verticesPrWorldCoordinate, heightVal * (yaw / 360F), (float)j / verticesPrWorldCoordinate));
+            }
+        }
+        // Generate triangles
+        for (int i = 0; i <= xVertricies - 1; i++)
+        {
+            for (int j = 0; j <= zVertricies - 1; j++)
+            {
+                triangles.Add(i * (zVertricies + 1) + j);
+                triangles.Add((i) * (zVertricies + 1) + (j + 1));
+                triangles.Add((i + 1) * (zVertricies + 1) + (j));
+                triangles.Add(i * (zVertricies + 1) + (j + 1));
+                triangles.Add((i + 1) * (zVertricies + 1) + (j + 1));
+                triangles.Add((i + 1) * (zVertricies + 1) + (j));
+            }
+        }
+        // Draw uv
+        Vector2[] uvs = new Vector2[verticesList.Count];
+        for (int i = 0; i < uvs.Length; i++)
+        {
+            uvs[i] = new Vector2(verticesList[i].x, verticesList[i].z);
+        }
+
+        // set values
+        mesh.vertices = verticesList.ToArray();
+        mesh.uv = uvs;
+        mesh.triangles = triangles.ToArray();
+        mesh.RecalculateNormals();
+    }
+
+
+/*
     public Mesh generateMeshMatrix(float x, float z, int rot, int resolution, Mesh mesh) // x,y are the lengths of the square making
     {
         mesh.Clear();
@@ -104,4 +177,5 @@ public class MeshGenerateTerrain : MonoBehaviour
         // Return mesh
         return mesh;
     }
+    */
 }
