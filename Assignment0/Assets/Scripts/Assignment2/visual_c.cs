@@ -31,7 +31,7 @@ public class visual_c : MonoBehaviour {
 			cameraImageMat.put (0, 0, pixels);
 			Imgproc.cvtColor (cameraImageMat, grayScale, Imgproc.COLOR_RGB2GRAY);
 
-			Imgproc.adaptiveThreshold (grayScale, grayScale, 150, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 7, 7);
+			Imgproc.adaptiveThreshold (grayScale, grayScale, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 7, 7);
 			MatDisplay.DisplayMat (grayScale, MatDisplaySettings.FULL_BACKGROUND);
 		}
 	}
