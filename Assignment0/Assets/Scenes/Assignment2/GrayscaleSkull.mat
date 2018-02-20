@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GrayscaleSkull
-  m_Shader: {fileID: 4800000, guid: c9bcff30dd6d4400eb9b45d1122feddc, type: 3}
+  m_Shader: {fileID: 4800000, guid: c483a6cada24241fdb70c73c7952540b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
