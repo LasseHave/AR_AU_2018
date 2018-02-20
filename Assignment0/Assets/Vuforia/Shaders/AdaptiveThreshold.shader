@@ -79,11 +79,9 @@ Properties{
 
                 float4 texcol = _SurfaceColor * (1.0 - contour) + _ContourColor * contour;
 
-
-                //float sample = noise(float2(unity_DeltaTime.x, unity_DeltaTime.y), 1, 1, 
+                float sample = noise(float2(unity_DeltaTime.x, unity_DeltaTime.y), 1, 1, 1);
             	fixed4 col = noise(uv, _Factor1, _Factor2, _Factor3);
-            	float sampleNoise = col.rgb;
-    			texcol = dot(dot(texcol, sampleNoise), float3(1.0, 1.0, 1.0));
+    			texcol = dot(dot(texcol * sin(uv.x)*_Random, col), float3(1.0, 1.0, 1.0));
 
         		return texcol;
             }
