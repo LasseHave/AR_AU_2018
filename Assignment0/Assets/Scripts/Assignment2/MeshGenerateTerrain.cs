@@ -13,7 +13,7 @@ public class MeshGenerateTerrain : MonoBehaviour
     private Mat heightMap;
     public Renderer rend;
     private byte[] data = new byte[1];
-    float xCord, zCord, oldxCord = 0, oldzCord = 0, minMovement = 0.1F;
+    float xCord, zCord, oldxCord = 0, oldzCord = 0, oldYawCord = 0, minMovement = 0.1F;
     int yawYDegree, worldImageSize = 3;
     // Use this for initialization
     void Start()
@@ -47,15 +47,17 @@ public class MeshGenerateTerrain : MonoBehaviour
             // Only draw if we are in positve area
             if (xCord > 0 && zCord > 0)
             {
+                // Get controller angle
+                yawYDegree = (int)Controller.transform.rotation.eulerAngles.y;
+
                 // Only draw if movement is larger than X and in the positive area
-                if (Mathf.Abs(xCord - oldxCord) > minMovement || Mathf.Abs(zCord - oldzCord) > minMovement)
+                if (Mathf.Abs(xCord - oldxCord) > minMovement || Mathf.Abs(zCord - oldzCord) > minMovement || Mathf.Abs(yawYDegree - oldYawCord) > 1)
                 {
-                    // Get controller angle
-                    yawYDegree = (int)Controller.transform.rotation.eulerAngles.y;
-                    // Generate the new mesh
+                     // Generate the new mesh
                     generateMesh(xCord, zCord, yawYDegree);
                     oldxCord = xCord;
                     oldzCord = zCord;
+                    oldYawCord = yawYDegree;
                 }
             }
         } else
@@ -72,7 +74,9 @@ public class MeshGenerateTerrain : MonoBehaviour
         mesh.Clear();
 
         // Limit yaw angles 
-        yaw = Mathf.Max(Mathf.Min(yaw, 180), 1);
+        yaw = Mathf.Max(Mathf.Min(yaw, 90), 1);
+        xCord = Mathf.Max(Mathf.Min(xCord, worldImageSize), 0);
+        zCord = Mathf.Max(Mathf.Min(zCord, worldImageSize), 0);
 
         // Calculate amount of veriticies to be drawn
         float verticesPrWorldCoordinate = heightMap.rows() / worldImageSize;
@@ -90,7 +94,7 @@ public class MeshGenerateTerrain : MonoBehaviour
                 // Limit height 
                 heightVal = Mathf.Max(Mathf.Min(heightVal, 1), 0);
                 // Define verticy
-                verticesList.Add(new Vector3((float)i / verticesPrWorldCoordinate, heightVal * (yaw / 360F), (float)j / verticesPrWorldCoordinate));
+                verticesList.Add(new Vector3((float)i / verticesPrWorldCoordinate, heightVal * (yaw / 180F), (float)j / verticesPrWorldCoordinate));
             }
         }
         // Generate triangles
