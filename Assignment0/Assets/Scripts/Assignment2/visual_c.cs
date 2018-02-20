@@ -8,7 +8,6 @@ public class visual_c : MonoBehaviour {
 
 	Mat grayScale;
 	Mat cameraImageMat;
-	Mat cameraImageBlurMat = new Mat();
 
 
 	// Use this for initialization
@@ -30,7 +29,9 @@ public class visual_c : MonoBehaviour {
 				
 			byte[] pixels = cameraImageRaw.Pixels;
 			cameraImageMat.put (0, 0, pixels);
-			Imgproc.adaptiveThreshold (cameraImageMat, grayScale, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY,11,2, 3);
+			Imgproc.cvtColor (cameraImageMat, grayScale, Imgproc.COLOR_RGB2GRAY);
+
+			Imgproc.adaptiveThreshold (grayScale, grayScale, 150, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 7, 7);
 			MatDisplay.DisplayMat (grayScale, MatDisplaySettings.FULL_BACKGROUND);
 		}
 	}
