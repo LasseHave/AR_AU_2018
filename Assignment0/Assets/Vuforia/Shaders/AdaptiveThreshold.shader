@@ -13,15 +13,18 @@ Properties{
     SubShader {
         Tags { "Queue" = "Geometry" "RenderType" = "Transparent" }
 
+        // The pass represents an execution of the vertex.
         Pass {
             Cull Back
             Blend SrcAlpha OneMinusSrcAlpha 
             // SrcAlpha: The value of this stage is multiplied by the source alpha value.
             // OnMinusSrcAlpha: The value of this stage is multiplied by (1 - source alpha).
 
+            //HLSL Code
+            // Pragmas are compilation directives
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            #pragma vertex vert // the vertex shader
+            #pragma fragment frag // the pixel shader
             #include "UnityCG.cginc"
 
             // We define the variables here, which is the same as from the GUI in matlab
@@ -37,30 +40,31 @@ Properties{
 
             // struct of v2f (close to class)
             // Includes, position, and coordinates for screen and depth
+            // UV coordinates are telling which pixels that is being shown
             struct v2f {
-                float4 pos : SV_POSITION;
-                float4 screenPos : TEXCOORD0;
-                float depth : TEXCOORD1;
+                float4 pos : SV_POSITION; // Vertex position
+                float4 screenPos : TEXCOORD0; // This first UV Coordinate
+                float depth : TEXCOORD1; // The second UV Coordinate
             };
 
-            v2f vert(appdata_base v) 
-            {
+            v2f vert(appdata_base v) {
+                // The vertex input appdata_base is position noraml and texture coordinate
                 v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.screenPos = ComputeScreenPos(o.pos);
+                o.pos = UnityObjectToClipPos(v.vertex); // BuiltIn func from object space to camera space
+                o.screenPos = ComputeScreenPos(o.pos); // BuiltIn func computes texture coord 
                 
-                COMPUTE_EYEDEPTH(o.depth);
-                o.depth = (o.depth - _ProjectionParams.y) / (_ProjectionParams.z - _ProjectionParams.y);
+                COMPUTE_EYEDEPTH(o.depth); // Computes eye space depth of vertex, not rendring into depth texture, so usefull for colors
+                o.depth = (o.depth - _ProjectionParams.y) / (_ProjectionParams.z - _ProjectionParams.y); // sync with projection
                 return o;
             }
  
-            float noise(half2 uv, float fac1, float fac2, float fac3)
-            {
+            float noise(half2 uv, float fac1, float fac2, float fac3) {
+                // Uses the three factors to generate pseudorandom noise
+                // Seems the way most people do it in unity
                 return frac(sin(dot(uv, float2(fac1, fac2))) * fac3);
             }
 
-            half4 frag(v2f i) : COLOR 
-            {
+            half4 frag(v2f i) : COLOR {
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 float du = 1.0 / _ScreenParams.x;
                 float dv = 1.0 / _ScreenParams.y;
@@ -86,6 +90,7 @@ Properties{
 
                 float sample = noise(float2(unity_DeltaTime.x, unity_DeltaTime.y), 1, 1, 1);
             	fixed4 col = noise(uv, _Factor1, _Factor2, _Factor3);
+                // Dot (multiply) the noise with the depth shader
     			texcol = dot(dot(texcol * sin(uv.x)*_Random, col), float3(1.0, 1.0, 1.0));
 
         		return texcol;
