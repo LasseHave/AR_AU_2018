@@ -44,9 +44,9 @@ MonoBehaviour:
       ContainsMagnet: 0
   databaseLoad:
     dataSetsToLoad:
-    - Assignment2b
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assignment2b
     - Assigment2_mesh
     - Assignment1_v4
     - Assignment1_v2
@@ -56,9 +56,9 @@ MonoBehaviour:
     - Assignment0
     - AR2018
     dataSetsToActivate:
-    - Assignment2b
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - Assignment2b
     - Assigment2_mesh
     - Assignment1_v4
     - Assignment1_v2
