@@ -13,17 +13,29 @@ public class homography_2b_c : MonoBehaviour {
 	public GameObject corner3;
 	public GameObject corner4;
 	public GameObject skull;
+	public GameObject imageTarget;
+	public ImageTargetBehaviour image_controller;
 
-	public float fx;
-	public float fy;
-	public float cx;
-	public float cy;
+
+	public float fx = 833.88811F;
+	public float fy = 834.98600F;
+	public float cx = 319.52686F;
+	public float cy = 238.81514F;
+	public float nearField = 0.05F;
+	public float farField = 2F;
+	public Matrix4x4 originalProjection;
 
 	private MatOfPoint2f imagePoints;
 	private Mat camImageMat;
+	private Mat skullMat;
 	private byte[] texData;
 
 	void Start () {
+		imageTarget = GameObject.Find ("ImageTarget");
+
+		image_controller = imageTarget.GetComponent<ImageTargetBehaviour>();
+		skullMat = MatDisplay.LoadRGBATexture("flying_skull_tex.png");
+
 		imagePoints = new MatOfPoint2f();
 		imagePoints.alloc(4);
 	}
@@ -42,8 +54,6 @@ public class homography_2b_c : MonoBehaviour {
 
 			camImageMat.put(0,0, camImg.Pixels);
 
-			// Der mangler lidt ændringer her!!!
-			//Replace with your own projection matrix. This approach only uses fy.
 			cam.fieldOfView = 2 * Mathf.Atan(camImg.Height * 0.5f / fy) * Mathf.Rad2Deg;
 
 			Vector3 worldPnt1 = corner1.transform.position;
@@ -94,18 +104,43 @@ public class homography_2b_c : MonoBehaviour {
 			Imgproc.line(camImageMat, imgPnt4, imgPnt1, lineCl);
 
 			// FROM HERE
+
 			var newPoints = new MatOfPoint2f (); // Creating a destination
 			newPoints.alloc (4); // Allocate memory
+			newPoints.put(1, 0, 640, 0);
+			newPoints.put(2, 0, 640, 480);
+			newPoints.put(3, 0, 0, 480);
+			newPoints.put(0, 0, 0, 0);
+
+			var skullPoints = new MatOfPoint2f (); // Creating a destination
+			skullPoints.alloc (4); // Allocate memory
+			skullPoints.put(0, 0, 1024, 0);
+			skullPoints.put(1, 0, 1024, 1024);
+			skullPoints.put(2, 0, 0, 1024);
+			skullPoints.put(3, 0, 0, 0);
+
+			Mat destPoints = new Mat ();// New mat as destination from warp
+			Mat destPointsSkull = new Mat ();// New mat as destination from warp
+
 			var findHomography = Calib3d.findHomography (imagePoints, newPoints); // Finding the image
-			Mat outputMat = new Mat(); // New mat as destination from warp
-			Imgproc.warpPerspective (camImageMat, outputMat, findHomography, new Size (outputMat.width(),outputMat.height()));
+			var findHomography2 = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
+			Debug.Log (skullMat);
 
-			Texture2D unwarpedTexture = new Texture2D (outputMat.cols(), outputMat.rows(), TextureFormat.RGBA32, false); // Her går det nok galt
+			Imgproc.warpPerspective (camImageMat, destPoints, findHomography, new Size (camImageMat.width(), camImageMat.height()));
+			Imgproc.warpPerspective (skullMat, destPointsSkull, findHomography2, new Size (camImageMat.width(), camImageMat.height()));
+			var newMat = new Mat ();
+			Core.addWeighted(camImageMat, 0.95f, destPointsSkull, 0.4f, 0.0, newMat);
 
-			MatDisplay.MatToTexture (outputMat, ref unwarpedTexture); // Tag output og lav til texture...
+			Texture2D unwarpedTexture = new Texture2D (destPoints.cols(), destPoints.rows(), TextureFormat.RGBA32, false);
+
+
+			MatDisplay.MatToTexture (destPoints, ref unwarpedTexture); // Tag output og lav til texture...
 			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
 
-			MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
+			MatDisplay.DisplayMat(destPoints, MatDisplaySettings.BOTTOM_LEFT);
+
+			MatDisplay.DisplayMat(newMat, MatDisplaySettings.FULL_BACKGROUND);
+
 		}
 	}
 }
