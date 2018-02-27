@@ -11,6 +11,7 @@ public class homography_2b_d : MonoBehaviour {
 	Mat cameraImageMat;
 	Mat cameraImageBlurMat = new Mat();
 	public GameObject skull;
+	public Texture2D originalTextureSkull;
 
 	public GameObject imageTarget;
 
@@ -19,13 +20,13 @@ public class homography_2b_d : MonoBehaviour {
 	public double thresholdValue = 160;
 
 	private MatOfPoint2f imagePoints;
-	private Mat skullMat;
+	private Mat skullMatPngOriginal;
 
 
 	// Use this for initialization
 	void Start () {
-		skullMat = MatDisplay.LoadRGBATexture("flying_skull_tex.png");
-
+		skullMatPngOriginal = MatDisplay.LoadRGBATexture("flying_skull_tex.png");
+		// originalTextureSkull = skull.GetComponent<Renderer> ().material.mainTexture;
 		imagePoints = new MatOfPoint2f();
 		imagePoints.alloc(4);
 	}
@@ -137,19 +138,42 @@ public class homography_2b_d : MonoBehaviour {
 			skullPoints.put(2, 0, 0, 1024);
 			skullPoints.put(3, 0, 0, 0);
 
-			Mat destPointsSkull = new Mat ();// New mat as destination from warp
-			var findHomography = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
+			var width = 640;
+			var height = 480;
+			var newPoints = new MatOfPoint2f (); // Creating a destination
+			newPoints.alloc (4); // Allocate memory
+			newPoints.put(1, 0, width, 0);
+			newPoints.put(2, 0, width, height);
+			newPoints.put(3, 0, 0, height);
+			newPoints.put(0, 0, 0, 0);
 
-			Imgproc.warpPerspective (skullMat, destPointsSkull, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
-			Texture2D unwarpedTexture = new Texture2D (destPointsSkull.cols(), destPointsSkull.rows(), TextureFormat.RGBA32, false);
-			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
+			Mat skullTexture = new Mat ();// New mat as destination from warp
+			Mat drawedTexture = new Mat ();// New mat as destination from warp
+
+			var findHomography = Calib3d.findHomography (imagePoints, newPoints); // Finding the image
+			var findHomography2 = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
+
+			Imgproc.warpPerspective (cameraImageMat, drawedTexture, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
+			Imgproc.warpPerspective (skullMatPngOriginal, skullTexture, findHomography2, new Size (cameraImageMat.width(), cameraImageMat.height()));
+
+
 
 			Mat newMat = new Mat ();
-			Core.addWeighted(cameraImageMat, 0.95f, destPointsSkull, 0.4f, 0.0, newMat);
+			Core.addWeighted(cameraImageMat, 0.95f, skullTexture, 0.4f, 0.0, newMat);
+
+			Mat mergedTexture = new Mat ();
+			Core.addWeighted(skullTexture, 1f, drawedTexture, 1f, 0.0, mergedTexture);
 
 
-			MatDisplay.DisplayMat (destPointsSkull, MatDisplaySettings.BOTTOM_LEFT);
+
+			Texture2D unwarpedMergedTexture = new Texture2D (mergedTexture.cols(), mergedTexture.rows(), TextureFormat.RGBA32, false);
+			MatDisplay.MatToTexture(mergedTexture, ref unwarpedMergedTexture); // Tag output og lav til texture...
+
+			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedMergedTexture; // Set textur på element
+
+
+			MatDisplay.DisplayMat (drawedTexture, MatDisplaySettings.BOTTOM_LEFT);
 
 			MatDisplay.DisplayMat (newMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
