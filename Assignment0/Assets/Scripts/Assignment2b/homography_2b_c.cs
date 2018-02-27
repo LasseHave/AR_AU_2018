@@ -13,7 +13,7 @@ public class homography_2b_c : MonoBehaviour {
 	public GameObject corner3;
 	public GameObject corner4;
 	public GameObject skull;
-	public GameObject imageTarget;
+    public GameObject imageTarget;
 	public ImageTargetBehaviour image_controller;
 
 
@@ -24,8 +24,10 @@ public class homography_2b_c : MonoBehaviour {
 	public float nearField = 0.05F;
 	public float farField = 2F;
 	public Matrix4x4 originalProjection;
-
-	private MatOfPoint2f imagePoints;
+    public int width = 640, height = 480;
+    Texture2D unwarpedTexture;
+    Texture2D unwarpedTextureClean;
+    private MatOfPoint2f imagePoints;
 	private Mat camImageMat;
 	private Mat skullMat;
 	private byte[] texData;
@@ -38,7 +40,8 @@ public class homography_2b_c : MonoBehaviour {
 
 		imagePoints = new MatOfPoint2f();
 		imagePoints.alloc(4);
-	}
+        unwarpedTextureClean = new Texture2D(width, height, TextureFormat.RGBA32, false);
+    }
 
 	void Update () {
 		//Access camera image provided by Vuforia
@@ -107,9 +110,9 @@ public class homography_2b_c : MonoBehaviour {
 
 			var newPoints = new MatOfPoint2f (); // Creating a destination
 			newPoints.alloc (4); // Allocate memory
-			newPoints.put(1, 0, 640, 0);
-			newPoints.put(2, 0, 640, 480);
-			newPoints.put(3, 0, 0, 480);
+			newPoints.put(1, 0, width, 0);
+			newPoints.put(2, 0, width, height);
+			newPoints.put(3, 0, 0, height);
 			newPoints.put(0, 0, 0, 0);
 
 			var skullPoints = new MatOfPoint2f (); // Creating a destination
@@ -129,14 +132,19 @@ public class homography_2b_c : MonoBehaviour {
 			Imgproc.warpPerspective (camImageMat, destPoints, findHomography, new Size (camImageMat.width(), camImageMat.height()));
 			Imgproc.warpPerspective (skullMat, destPointsSkull, findHomography2, new Size (camImageMat.width(), camImageMat.height()));
 			var newMat = new Mat ();
-			Core.addWeighted(camImageMat, 0.95f, destPointsSkull, 0.4f, 0.0, newMat);
+            if (image_controller.CurrentStatus == ImageTargetBehaviour.Status.TRACKED)
+            {
+                Core.addWeighted(camImageMat, 0.95f, destPointsSkull, 0.4f, 0.0, newMat);
 
-			Texture2D unwarpedTexture = new Texture2D (destPoints.cols(), destPoints.rows(), TextureFormat.RGBA32, false);
+                unwarpedTexture = unwarpedTextureClean;
 
-
-			MatDisplay.MatToTexture (destPoints, ref unwarpedTexture); // Tag output og lav til texture...
-			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
-
+                MatDisplay.MatToTexture(destPoints, ref unwarpedTexture); // Tag output og lav til texture...
+                skull.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; // Set textur på element
+            }
+            else
+            {
+                newMat = camImageMat;
+            }
 			MatDisplay.DisplayMat(destPoints, MatDisplaySettings.BOTTOM_LEFT);
 
 			MatDisplay.DisplayMat(newMat, MatDisplaySettings.FULL_BACKGROUND);
