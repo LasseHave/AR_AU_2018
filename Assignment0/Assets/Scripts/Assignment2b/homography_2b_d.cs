@@ -157,12 +157,11 @@ public class homography_2b_d : MonoBehaviour {
 			Imgproc.warpPerspective (cameraImageMat, drawedTexture, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 			Imgproc.warpPerspective (skullMatPngOriginal, skullTexture, findHomography2, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
-			Mat newMat = new Mat ();
+			Mat newMat = new Mat (); //"Prints" the skullTexture on videofeed
 			Core.addWeighted(cameraImageMat, 0.95f, skullTexture, 0.4f, 0.0, newMat);
 
-			Mat mergedTexture = new Mat ();
+			Mat mergedTexture = new Mat (); // Merge the drawn texture with the skulltexture
 			Core.addWeighted(skullTexture, 1f, drawedTexture, 1f, 0.0, mergedTexture);
-
 
 
 			Texture2D unwarpedMergedTexture = new Texture2D (mergedTexture.cols(), mergedTexture.rows(), TextureFormat.RGBA32, false);
@@ -172,6 +171,7 @@ public class homography_2b_d : MonoBehaviour {
 
 
 			MatDisplay.DisplayMat (drawedTexture, MatDisplaySettings.BOTTOM_LEFT);
+			MatDisplay.DisplayMat (skullTexture, MatDisplaySettings.BOTTOM_RIGHT);
 
 			MatDisplay.DisplayMat (newMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
