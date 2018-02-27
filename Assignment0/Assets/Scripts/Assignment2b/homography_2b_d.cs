@@ -58,18 +58,11 @@ public class homography_2b_d : MonoBehaviour {
 			//thresholding make the image black and white
 			Imgproc.threshold(grayScale, threshold, 0, thresholdValue, Imgproc.THRESH_OTSU);
 
-
 			// Find contours and draw
 			List<MatOfPoint> contours = new List<MatOfPoint>();
 			List<MatOfPoint> ls_mop = new List<MatOfPoint>();
 			Mat hierarchy = new Mat();
 			Imgproc.findContours(threshold, ls_mop, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-
-
-			for (int i = 0; i < ls_mop.Count; i++) {
-				Imgproc.drawContours (threshold, ls_mop, i, new Scalar (255, 0, 0), 2, 8, hierarchy, 0, new Point (0, 0));
-			}
-
 
 			List<MatOfPoint> tempTargets = new List<MatOfPoint>();
 			for(int i=0; i<ls_mop.Count; i++)
