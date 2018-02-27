@@ -7,7 +7,6 @@ using Vuforia;
 public class homography_2b_b : MonoBehaviour {
 
 	public Camera cam;
-
 	public GameObject corner1;
 	public GameObject corner2;
 	public GameObject corner3;
@@ -15,7 +14,6 @@ public class homography_2b_b : MonoBehaviour {
 	public GameObject skull;
 	public GameObject imageTarget;
 	public ImageTargetBehaviour image_controller;
-
 
 	public float fx = 833.88811F;
 	public float fy = 834.98600F;
@@ -25,9 +23,10 @@ public class homography_2b_b : MonoBehaviour {
 	public float farField = 2F;
 	public Matrix4x4 originalProjection;
 
-	public float width = 640F, height = 480F;
-
-	private MatOfPoint2f imagePoints;
+    public int width = 640, height = 480;
+    Texture2D unwarpedTexture;
+    Texture2D unwarpedTextureClean;
+    private MatOfPoint2f imagePoints;
     private Mat calc_A;
     private Mat calc_b;
     private Mat calc_Htemp;
@@ -48,6 +47,7 @@ public class homography_2b_b : MonoBehaviour {
         calc_b = new Mat(8, 1, CvType.CV_64FC1);
         calc_Htemp = new Mat(8, 1, CvType.CV_64FC1);
         calc_H = new Mat(3, 3, CvType.CV_64FC1);
+        unwarpedTextureClean = new Texture2D(width, height, TextureFormat.RGBA32, false);
     }
 
 	void Update () {
@@ -226,14 +226,12 @@ public class homography_2b_b : MonoBehaviour {
 
             Imgproc.warpPerspective (camImageMat, destPoints, calc_H, new Size (camImageMat.width(), camImageMat.height()));
 
-			Texture2D unwarpedTexture = new Texture2D (destPoints.cols(), destPoints.rows(), TextureFormat.RGBA32, false); // Her går det nok galt
+            unwarpedTexture = unwarpedTextureClean;
 
-			MatDisplay.MatToTexture (destPoints, ref unwarpedTexture); // Tag output og lav til texture...
+            MatDisplay.MatToTexture (destPoints, ref unwarpedTexture); // Tag output og lav til texture...
 			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
 
-
 			MatDisplay.DisplayMat(destPoints, MatDisplaySettings.BOTTOM_LEFT);
-
 			MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
 	}
