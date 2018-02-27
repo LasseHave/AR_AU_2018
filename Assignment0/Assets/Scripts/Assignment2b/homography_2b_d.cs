@@ -10,14 +10,24 @@ public class homography_2b_d : MonoBehaviour {
 	Mat threshold;
 	Mat cameraImageMat;
 	Mat cameraImageBlurMat = new Mat();
+	public GameObject skull;
+
+	public GameObject imageTarget;
+
 	Texture2D imgTexture;
 	public static bool allCubiesScaned = false;
 	public double thresholdValue = 160;
 
+	private MatOfPoint2f imagePoints;
+	private Mat skullMat;
 
 
 	// Use this for initialization
 	void Start () {
+		skullMat = MatDisplay.LoadRGBATexture("flying_skull_tex.png");
+
+		imagePoints = new MatOfPoint2f();
+		imagePoints.alloc(4);
 	}
 
 	// Update is called once per frame
@@ -95,37 +105,50 @@ public class homography_2b_d : MonoBehaviour {
 					}
 
 				}
-
+					
 			}
+
+			MatOfPoint test2 = new MatOfPoint ();
+			MatOfPoint2f matof2point = new MatOfPoint2f ();
+			matof2point.alloc (4);
 
 			for (int i = 0; i < tempTargets.Count; i++) {
 				Point[] arr = tempTargets [i].toArray ();
+				if (i == 0) {
+					Point[] test = tempTargets [0].toArray ();
+					for (int z = 0; z < test.Length; z++) {
+						
+						imagePoints.put(z, 0, test[z].x, test[z].y);
+
+						MatDisplay.PutPoint2f(matof2point, z, new Vector2((float)test[z].x, (float)(test[z].y)));
+					}
+				}
 				for (int z = 0; z < arr.Length; z++) {
 					Imgproc.circle (threshold, arr[z], 15, new Scalar (255, 0, 255), -1);
 				}
 			}
 
-			/*
-			for (int i=0; i<ls_mop.Count; i++) {
-				double returnVal = Imgproc.matchShapes (ls_mop [1], ls_mop [i], Imgproc.CV_CONTOURS_MATCH_I1, 0);
-				Debug.Log ("returnVal " + i + " " + returnVal);
+				
 
-				Point point = new Point ();
-				float[] radius = new float[1];
-				Imgproc.minEnclosingCircle (new MatOfPoint2f (ls_mop [i].toArray ()), point, radius);
-				Debug.Log ("point.ToString() " + point.ToString ());
-				Debug.Log ("radius.ToString() " + radius [0]);
+			var skullPoints = new MatOfPoint2f (); // Creating a destination
+			skullPoints.alloc (4); // Allocate memory
+			skullPoints.put(0, 0, 1024, 0);
+			skullPoints.put(1, 0, 1024, 1024);
+			skullPoints.put(2, 0, 0, 1024);
+			skullPoints.put(3, 0, 0, 0);
 
-				Imgproc.circle (threshold, point, 5, new Scalar (0, 0, 255), -1);
-				Imgproc.putText (threshold, " " + returnVal, point, Core.FONT_HERSHEY_SIMPLEX, 0.4, new Scalar (0, 255, 0), 1, Imgproc.LINE_AA, false);
-			}
-			*/
+			Mat destPointsSkull = new Mat ();// New mat as destination from warp
+			var findHomography = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
 
-			// Approx polygons - From this part im not so sure whether it works.
-			//MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
-			//MatOfPoint2f approxCurve = new MatOfPoint2f();
-			//Imgproc.approxPolyDP(matOfPoint2f, approxCurve, Imgproc.arcLength(matOfPoint2f, true) * 0.02, true);
+			Imgproc.warpPerspective (skullMat, destPointsSkull, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
+			Texture2D unwarpedTexture = new Texture2D (destPointsSkull.cols(), destPointsSkull.rows(), TextureFormat.RGBA32, false);
+
+
+
+			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
+
+			MatDisplay.DisplayMat (destPointsSkull, MatDisplaySettings.BOTTOM_LEFT);
 
 			MatDisplay.DisplayMat (threshold, MatDisplaySettings.FULL_BACKGROUND);
 		}
