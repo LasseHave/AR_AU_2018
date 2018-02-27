@@ -64,8 +64,11 @@ Properties{
                 return frac(sin(dot(uv, float2(fac1, fac2))) * fac3);
             }
 
+            // The pixel shader implementation
             half4 frag(v2f i) : COLOR {
+            	// Define variables
                 float2 uv = i.screenPos.xy / i.screenPos.w;
+                // _ScreenParams is built in Unity, .x is render width :: .y is render height
                 float du = 1.0 / _ScreenParams.x;
                 float dv = 1.0 / _ScreenParams.y;
                 float2 uv_X1 = uv + float2(du, 0.0);
@@ -73,6 +76,8 @@ Properties{
                 float2 uv_X2 = uv + float2(-du, 0.0);
                 float2 uv_Y2 = uv + float2(0.0, -dv);
 
+                // Linear01Depth = given high precision value from depth texture i, returns corresponding linear depth in range between 0 and 1.
+                // Create multiple depth samples from buffer
                 float depth0 = Linear01Depth(UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, uv)));
                 float depthX1 = Linear01Depth(UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, uv_X1)));
                 float depthY1 = Linear01Depth(UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, uv_Y1)));
@@ -86,9 +91,10 @@ Properties{
                 float maxDepthStep = length(float2(depthStepX, depthStepY));
                 half contour = (maxDepthStep > refDepthStep) ? 1.0 : 0.0;
 
+                // If contour is 0, we show the surfaceColor, otherwise show contourColor.
                 float4 texcol = _SurfaceColor * (1.0 - contour) + _ContourColor * contour;
 
-                float sample = noise(float2(unity_DeltaTime.x, unity_DeltaTime.y), 1, 1, 1);
+                // Add noise to texColor, create noise from DeltaTime
             	fixed4 col = noise(uv, _Factor1, _Factor2, _Factor3);
                 // Dot (multiply) the noise with the depth shader
     			texcol = dot(dot(texcol * sin(uv.x)*_Random, col), float3(1.0, 1.0, 1.0));
