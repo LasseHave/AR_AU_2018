@@ -143,14 +143,15 @@ public class homography_2b_d : MonoBehaviour {
 			Imgproc.warpPerspective (skullMat, destPointsSkull, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
 			Texture2D unwarpedTexture = new Texture2D (destPointsSkull.cols(), destPointsSkull.rows(), TextureFormat.RGBA32, false);
-
-
-
 			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
+
+			Mat newMat = new Mat ();
+			Core.addWeighted(cameraImageMat, 0.95f, destPointsSkull, 0.4f, 0.0, newMat);
+
 
 			MatDisplay.DisplayMat (destPointsSkull, MatDisplaySettings.BOTTOM_LEFT);
 
-			MatDisplay.DisplayMat (threshold, MatDisplaySettings.FULL_BACKGROUND);
+			MatDisplay.DisplayMat (newMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
 			
 	}
