@@ -112,22 +112,29 @@ public class homography_2b_d : MonoBehaviour {
 			MatOfPoint2f matof2point = new MatOfPoint2f ();
 			matof2point.alloc (4);
 
+			Point[] largestShape = new OpenCVForUnity.Point[4];
+			float largestArea = 0;
+
 			for (int i = 0; i < tempTargets.Count; i++) {
 				Point[] arr = tempTargets [i].toArray ();
-				if (i == 0) {
-					Point[] test = tempTargets [0].toArray ();
-					for (int z = 0; z < test.Length; z++) {
-						
-						imagePoints.put(z, 0, test[z].x, test[z].y);
 
-						MatDisplay.PutPoint2f(matof2point, z, new Vector2((float)test[z].x, (float)(test[z].y)));
-					}
-				}
-				for (int z = 0; z < arr.Length; z++) {
-					Imgproc.circle (threshold, arr[z], 15, new Scalar (255, 0, 255), -1);
+				double area = this.PolygonArea (arr);
+				largestArea = Mathf.Max ((float)area, (float)largestArea);
+
+				if (largestArea == area) {
+					largestShape = arr;
 				}
 			}
 
+			if (largestArea == 0)
+				return;
+				
+			for (int z = 0; z < largestShape.Length; z++) {
+				imagePoints.put(z, 0, largestShape[z].x, largestShape[z].y);
+				MatDisplay.PutPoint2f(matof2point, z, new Vector2((float)largestShape[z].x, (float)(largestShape[z].y)));
+
+				Imgproc.circle (threshold, largestShape[z], 15, new Scalar (255, 0, 255), -1);
+			}
 				
 
 			var skullPoints = new MatOfPoint2f (); // Creating a destination
@@ -154,6 +161,22 @@ public class homography_2b_d : MonoBehaviour {
 			MatDisplay.DisplayMat (newMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
 			
+	}
+
+	private double PolygonArea(Point[] polygon)
+	{
+		int i,j;
+		double area = 0; 
+
+		for (i=0; i < polygon.Length; i++) {
+			j = (i + 1) % polygon.Length;
+
+			area += polygon[i].x * polygon[j].y;
+			area -= polygon[i].y * polygon[j].x;
+		}
+
+		area /= 2;
+		return (area < 0 ? -area : area);
 	}
 
 	private double angle(Point pt1, Point pt2, Point pt0)
