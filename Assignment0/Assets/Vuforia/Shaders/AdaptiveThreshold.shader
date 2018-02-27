@@ -97,7 +97,10 @@ Properties{
                 // Add noise to texColor, create noise from DeltaTime
             	fixed4 col = noise(uv, _Factor1, _Factor2, _Factor3);
                 // Dot (multiply) the noise with the depth shader
-    			texcol = dot(dot(texcol * sin(uv.x)*_Random, col), float3(1.0, 1.0, 1.0));
+                if (contour == 0) {
+    				texcol = dot(dot(texcol, col), float3(1.0, 1.0, 1.0));
+    			}
+    			//texcol.a = 1;
 
         		return texcol;
             }

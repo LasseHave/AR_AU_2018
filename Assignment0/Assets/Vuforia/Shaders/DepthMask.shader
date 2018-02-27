@@ -40,7 +40,7 @@ Shader "DepthMask" {
         // argument to ColorMask which lets us avoid writing to anything except
         // the depth buffer.
 
-        ColorMask 0
+        // ColorMask 0
 
         // Do nothing specific in the pass:
 
