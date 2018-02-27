@@ -157,8 +157,6 @@ public class homography_2b_d : MonoBehaviour {
 			Imgproc.warpPerspective (cameraImageMat, drawedTexture, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 			Imgproc.warpPerspective (skullMatPngOriginal, skullTexture, findHomography2, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
-
-
 			Mat newMat = new Mat ();
 			Core.addWeighted(cameraImageMat, 0.95f, skullTexture, 0.4f, 0.0, newMat);
 

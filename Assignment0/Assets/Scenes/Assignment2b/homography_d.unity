@@ -413,6 +413,10 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!1 &1488169967 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100004, guid: 61b5e4b4cef6048f294a416e0814351f, type: 3}
+  m_PrefabInternal: {fileID: 192693934}
 --- !u!1 &1771069773
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722e6db483cdb4902861a77c77eea9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skull: {fileID: 192693936}
+  skull: {fileID: 1488169967}
+  originalTextureSkull: {fileID: 0}
   imageTarget: {fileID: 0}
   thresholdValue: 160
 --- !u!114 &1771069775
