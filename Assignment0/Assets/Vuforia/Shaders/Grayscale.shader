@@ -3,6 +3,8 @@
  Shader "Unlit/GreyScale" {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" { } // The texture for the noise
+		_NOISETex ("Texture", 2D) = "white" { } // The texture for the noise
+
 		_Factor1 ("Factor 1", float) = 1 // Factors for noise, used in pseudorandom noise generation
         _Factor2 ("Factor 2", float) = 1
         _Factor3 ("Factor 3", float) = 1
@@ -17,6 +19,7 @@
 
 			// main texture for the noise
 			sampler2D _MainTex;
+			sampler2D _NOISETex;
 
 			struct v2f {
 				float4  pos : SV_POSITION; // Vertex position
@@ -47,10 +50,11 @@
       		}
 
 			half4 frag (v2f i) : COLOR {
+				half4 noiseTex = tex2D(_NOISETex, i.uv);
         		half4 texcol = tex2D (_MainTex, i.uv);
 				fixed4 col = noise(i.uv);
 				// Multiply the noise with the texture
-        		texcol.rgb = dot(dot(texcol.rgb,col.rgb), float3(0.3, 0.59, 0.11));
+        		texcol.rgb = dot(dot(texcol.rgb,noiseTex.rgb), float3(0.3, 0.59, 0.11));
         		return texcol;
       		}
 
