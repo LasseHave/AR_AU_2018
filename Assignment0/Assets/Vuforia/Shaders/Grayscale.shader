@@ -3,23 +3,29 @@
  Shader "Unlit/GreyScale" {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" { } // The texture for the noise
-		_NOISETex ("Texture", 2D) = "white" { } // The texture for the noise
+		_NoiseTex ("Noise Texture", 2D) = "white" { } // The texture for the noise
 
-		_Factor1 ("Factor 1", float) = 1 // Factors for noise, used in pseudorandom noise generation
-        _Factor2 ("Factor 2", float) = 1
-        _Factor3 ("Factor 3", float) = 1
+		_NoiseIntensity ("_NoiseIntensity", Vector) = (1, 1, 1, 1) 
+		_NoiseSample ("_NoiseSample", Vector) = (1, 1, 1, 1)
+		_NoiseSampleSize ("_NoiseSampleSize", Vector) = (1, 1, 1, 1)
 	}
 	SubShader {
 		Pass {
 			CGPROGRAM
-			
+
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
 
 			// main texture for the noise
 			sampler2D _MainTex;
-			sampler2D _NOISETex;
+			sampler2D _NoiseTex;
+
+			float2 _NoiseIntensity;
+			float2 _NoiseSampleSize;
+			float2 _NoiseSample;
+
+			float4 _MainTex_ST;
 
 			struct v2f {
 				float4  pos : SV_POSITION; // Vertex position
@@ -30,17 +36,6 @@
 				float3 worldPos;
 			};
 
-			float _Factor1;
-            float _Factor2;
-            float _Factor3;
- 
-            float noise(half2 uv)
-            {
-				// Pseudorandom noise
-                return frac(sin(dot(uv, float2(_Factor1, _Factor2))) * _Factor3);
-            }
-			
-			float4 _MainTex_ST;
       		v2f vert (appdata_base v) {
         		v2f o;
 				// Convert to camera position
@@ -50,11 +45,14 @@
       		}
 
 			half4 frag (v2f i) : COLOR {
-				half4 noiseTex = tex2D(_NOISETex, i.uv);
         		half4 texcol = tex2D (_MainTex, i.uv);
-				fixed4 col = noise(i.uv);
 				// Multiply the noise with the texture
-        		texcol.rgb = dot(dot(texcol.rgb,noiseTex.rgb), float3(0.3, 0.59, 0.11));
+        		texcol.rgb = dot(texcol.rgb, float3(0.3, 0.59, 0.11));
+
+
+        		half4 noiseSample = tex2D(_NoiseTex, (i.uv + (_NoiseSample) ) * (_NoiseSampleSize) );
+        		texcol.rgb += noiseSample.rgb * _NoiseIntensity.x;
+
         		return texcol;
       		}
 
