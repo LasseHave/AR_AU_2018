@@ -450,6 +450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skull: {fileID: 1488169967}
   originalTextureSkull: {fileID: 0}
+  ownHomography: 0
+  cam: {fileID: 1771069778}
   imageTarget: {fileID: 0}
   thresholdValue: 160
 --- !u!114 &1771069775

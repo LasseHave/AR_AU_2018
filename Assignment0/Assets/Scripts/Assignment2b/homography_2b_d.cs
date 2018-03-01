@@ -12,6 +12,9 @@ public class homography_2b_d : MonoBehaviour {
 	Mat cameraImageBlurMat = new Mat();
 	public GameObject skull;
 	public Texture2D originalTextureSkull;
+	public int ownHomography;
+	public Camera cam;
+	public int fy = 650;
 
 	public GameObject imageTarget;
 
@@ -19,16 +22,37 @@ public class homography_2b_d : MonoBehaviour {
 	public static bool allCubiesScaned = false;
 	public double thresholdValue = 160;
 
+	Mat mergedMat;
+	public ImageTargetBehaviour image_controller;
+
+
+	private Texture2D unwarpedTexture;
 	private MatOfPoint2f imagePoints;
 	private Mat skullMatPngOriginal;
+
+	Mat calc_A = new Mat ();
+	Mat calc_b = new Mat ();
+	Mat calc_Htemp = new Mat ();
+	Mat calc_H = new Mat ();
 
 
 	// Use this for initialization
 	void Start () {
 		skullMatPngOriginal = MatDisplay.LoadRGBATexture("flying_skull_tex.png");
-		// originalTextureSkull = skull.GetComponent<Renderer> ().material.mainTexture;
+		imageTarget = GameObject.Find ("ImageTarget");
+		image_controller = imageTarget.GetComponent<ImageTargetBehaviour>();
+
 		imagePoints = new MatOfPoint2f();
 		imagePoints.alloc(4);
+		unwarpedTexture = new Texture2D (640, 480, TextureFormat.RGBA32, false);
+
+		mergedMat = new Mat ();
+
+		calc_A = new Mat(8, 8,CvType.CV_64FC1);
+		calc_b = new Mat(8, 1, CvType.CV_64FC1);
+		calc_Htemp = new Mat(8, 1, CvType.CV_64FC1);
+		calc_H = new Mat(3, 3, CvType.CV_64FC1);
+
 	}
 
 	// Update is called once per frame
@@ -49,6 +73,8 @@ public class homography_2b_d : MonoBehaviour {
 			// Threshold and Grayscale
 			byte[] pixels = cameraImageRaw.Pixels;
 			cameraImageMat.put (0, 0, pixels);
+			cam.fieldOfView = 2 * Mathf.Atan(cameraImageRaw.Height * 0.5f / fy) * Mathf.Rad2Deg;
+
 
 			//convert color to gray
 			Imgproc.cvtColor (cameraImageMat, grayScale, Imgproc.COLOR_RGB2GRAY);
@@ -120,8 +146,11 @@ public class homography_2b_d : MonoBehaviour {
 				}
 			}
 
-			if (largestArea == 0)
+			if (largestArea == 0 || image_controller.CurrentStatus != ImageTargetBehaviour.Status.TRACKED) {
+				MatDisplay.DisplayMat (cameraImageMat, MatDisplaySettings.FULL_BACKGROUND);
 				return;
+			}
+				
 				
 			for (int z = 0; z < largestShape.Length; z++) {
 				imagePoints.put(z, 0, largestShape[z].x, largestShape[z].y);
@@ -151,29 +180,49 @@ public class homography_2b_d : MonoBehaviour {
 			Mat skullTexture = new Mat ();// New mat as destination from warp
 			Mat drawedTexture = new Mat ();// New mat as destination from warp
 
-			var findHomography = Calib3d.findHomography (imagePoints, newPoints); // Finding the image
-			var findHomography2 = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
+			Mat findHomography = new Mat();
+			Mat findHomography2 = new Mat ();
+			if (ownHomography == 1) {
 
+				findHomography = useOwnHomography (imagePoints, newPoints);
+				findHomography2 = Calib3d.findHomography (skullPoints, imagePoints); 
+
+				
+			} else {
+				findHomography = Calib3d.findHomography (imagePoints, newPoints); // Finding the image
+				findHomography2 = Calib3d.findHomography (skullPoints, imagePoints); // Finding the image
+
+
+			}
+				
 			Imgproc.warpPerspective (cameraImageMat, drawedTexture, findHomography, new Size (cameraImageMat.width(), cameraImageMat.height()));
 			Imgproc.warpPerspective (skullMatPngOriginal, skullTexture, findHomography2, new Size (cameraImageMat.width(), cameraImageMat.height()));
 
-			Mat newMat = new Mat (); //"Prints" the skullTexture on videofeed
-			Core.addWeighted(cameraImageMat, 0.95f, skullTexture, 0.4f, 0.0, newMat);
+			 //"Prints" the skullTexture on videofeed
+			Core.addWeighted(cameraImageMat, 0.95f, skullTexture, 0.4f, 0.0, mergedMat);
 
 			Mat mergedTexture = new Mat (); // Merge the drawn texture with the skulltexture
 			Core.addWeighted(skullTexture, 1f, drawedTexture, 1f, 0.0, mergedTexture);
 
 
-			Texture2D unwarpedMergedTexture = new Texture2D (mergedTexture.cols(), mergedTexture.rows(), TextureFormat.RGBA32, false);
-			MatDisplay.MatToTexture(mergedTexture, ref unwarpedMergedTexture); // Tag output og lav til texture...
+			MatDisplay.MatToTexture(drawedTexture, ref unwarpedTexture); // Tag output og lav til texture...
 
-			skull.GetComponent<Renderer> ().material.mainTexture = unwarpedMergedTexture; // Set textur på element
+
+			if (Input.GetKey("space"))
+			{
+				skull.GetComponent<Renderer> ().material.mainTexture = unwarpedTexture; // Set textur på element
+			}
+			// else
+			// {
+			// 	skull.GetComponent<Renderer>().material.mainTexture = tex; // Set textur på element
+			// }
+
 
 
 			MatDisplay.DisplayMat (drawedTexture, MatDisplaySettings.BOTTOM_LEFT);
-			MatDisplay.DisplayMat (skullTexture, MatDisplaySettings.BOTTOM_RIGHT);
+			// MatDisplay.DisplayMat (skullTexture, MatDisplaySettings.BOTTOM_RIGHT);
 
-			MatDisplay.DisplayMat (newMat, MatDisplaySettings.FULL_BACKGROUND);
+			MatDisplay.DisplayMat (mergedMat, MatDisplaySettings.FULL_BACKGROUND);
 		}
 			
 	}
@@ -201,5 +250,108 @@ public class homography_2b_d : MonoBehaviour {
 		double dx2 = pt2.x - pt0.x;
 		double dy2 = pt2.y - pt0.y;
 		return (dx1 * dx2 + dy1 * dy2) / System.Math.Sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2) + 1e-10);
+	}
+
+	private Mat useOwnHomography(MatOfPoint2f imagePoints, MatOfPoint2f newPoints){
+
+
+
+		// Extract data for homography
+		var x0_prime = newPoints.get(0, 0)[0];
+		var y0_prime = newPoints.get(0, 0)[1];
+		var x1_prime = newPoints.get(1, 0)[0];
+		var y1_prime = newPoints.get(1, 0)[1];
+		var x2_prime = newPoints.get(2, 0)[0];
+		var y2_prime = newPoints.get(2, 0)[1];
+		var x3_prime = newPoints.get(3, 0)[0];
+		var y3_prime = newPoints.get(3, 0)[1];
+
+		var x0_src = imagePoints.get(0, 0)[0];
+		var y0_src = imagePoints.get(0, 0)[1];
+		var x1_src = imagePoints.get(1, 0)[0];
+		var y1_src = imagePoints.get(1, 0)[1];
+		var x2_src = imagePoints.get(2, 0)[0];
+		var y2_src = imagePoints.get(2, 0)[1];
+		var x3_src = imagePoints.get(3, 0)[0];
+		var y3_src = imagePoints.get(3, 0)[1];
+
+		// Initialize Matrix A, 
+		// First point
+		calc_A.put(0, 0, x0_src);
+		calc_A.put(0, 1, y0_src);
+		calc_A.put(0, 2, 1);
+		calc_A.put(0, 6, -x0_prime*x0_src);
+		calc_A.put(0, 7, -x0_prime*y0_src);
+
+		calc_A.put(1, 3, x0_src);
+		calc_A.put(1, 4, y0_src);
+		calc_A.put(1, 5, 1);
+		calc_A.put(1, 6, -y0_prime * x0_src);
+		calc_A.put(1, 7, -y0_prime * y0_src);
+
+		// Second point
+		calc_A.put(2, 0, x1_src);
+		calc_A.put(2, 1, y1_src);
+		calc_A.put(2, 2, 1);
+		calc_A.put(2, 6, -x1_prime * x1_src);
+		calc_A.put(2, 7, -x1_prime * y1_src);
+
+		calc_A.put(3, 3, x1_src);
+		calc_A.put(3, 4, y1_src);
+		calc_A.put(3, 5, 1);
+		calc_A.put(3, 6, -y1_prime * x1_src);
+		calc_A.put(3, 7, -y1_prime * y1_src);
+
+		// Third point
+		calc_A.put(4, 0, x2_src);
+		calc_A.put(4, 1, y2_src);
+		calc_A.put(4, 2, 1);
+		calc_A.put(4, 6, -x2_prime * x2_src);
+		calc_A.put(4, 7, -x2_prime * y2_src);
+
+		calc_A.put(5, 3, x2_src);
+		calc_A.put(5, 4, y2_src);
+		calc_A.put(5, 5, 1);
+		calc_A.put(5, 6, -y2_prime * x2_src);
+		calc_A.put(5, 7, -y2_prime * y2_src);
+
+		// Forth point
+		calc_A.put(6, 0, x3_src);
+		calc_A.put(6, 1, y3_src);
+		calc_A.put(6, 2, 1);
+		calc_A.put(6, 6, -x3_prime * x3_src);
+		calc_A.put(6, 7, -x3_prime * y3_src);
+
+		calc_A.put(7, 3, x3_src);
+		calc_A.put(7, 4, y3_src);
+		calc_A.put(7, 5, 1);
+		calc_A.put(7, 6, -y3_prime * x3_src);
+		calc_A.put(7, 7, -y3_prime * y3_src);
+
+		// Initialize the b vector 
+		calc_b.put(0, 0, x0_prime);
+		calc_b.put(1, 0, y0_prime);
+		calc_b.put(2, 0, x1_prime);
+		calc_b.put(3, 0, y1_prime);
+		calc_b.put(4, 0, x2_prime);
+		calc_b.put(5, 0, y2_prime);
+		calc_b.put(6, 0, x3_prime);
+		calc_b.put(7, 0, y3_prime);
+
+		// Solve the Ax=b 
+		Core.solve(calc_A, calc_b, calc_Htemp);
+
+		// Reallocate values to a 3x3 matrix
+		calc_H.put(0, 0, calc_Htemp.get(0, 0));
+		calc_H.put(0, 1, calc_Htemp.get(1, 0));
+		calc_H.put(0, 2, calc_Htemp.get(2, 0));
+		calc_H.put(1, 0, calc_Htemp.get(3, 0));
+		calc_H.put(1, 1, calc_Htemp.get(4, 0));
+		calc_H.put(1, 2, calc_Htemp.get(5, 0));
+		calc_H.put(2, 0, calc_Htemp.get(6, 0));
+		calc_H.put(2, 1, calc_Htemp.get(7, 0));
+		calc_H.put(2, 2, 1); // Normalize
+	
+		return calc_H;
 	}
 }
