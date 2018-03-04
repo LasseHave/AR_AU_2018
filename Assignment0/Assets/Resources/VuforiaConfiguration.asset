@@ -44,6 +44,7 @@ MonoBehaviour:
       ContainsMagnet: 0
   databaseLoad:
     dataSetsToLoad:
+    - Assignment3
     - VuforiaMars_Images
     - VuforiaMars_VuMark
     - Assignment2b
@@ -56,6 +57,7 @@ MonoBehaviour:
     - Assignment0
     - AR2018
     dataSetsToActivate:
+    - Assignment3
     - VuforiaMars_Images
     - VuforiaMars_VuMark
     - Assignment2b
@@ -72,7 +74,7 @@ MonoBehaviour:
     videoBackgroundShader: {fileID: 15311, guid: 0000000000000000f000000000000000,
       type: 0}
     matteShader: {fileID: 15310, guid: 0000000000000000f000000000000000, type: 0}
-    videoBackgroundEnabled: 0
+    videoBackgroundEnabled: 1
   deviceTracker:
     autoInitTracker: 0
     autoStartTracker: 0
