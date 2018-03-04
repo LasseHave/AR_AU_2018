@@ -163,7 +163,7 @@ public class assignment3_d : MonoBehaviour, IVirtualButtonEventHandler {
 	}
 	private void removeChar() {
 		if (text.Length > 0) {
-			text.Remove(text.Length - 1);
+			text = text.Remove(text.Length - 1);
 			textField.GetComponent<TextMesh> ().text = text;
 			Debug.Log (text);
 		}
