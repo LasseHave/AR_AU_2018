@@ -4,10 +4,11 @@ Properties{
         _SurfaceColor("Surface Color", Color) = (0.5,0.5,0.5,1) // Define color of surfaces (not contours)
         _DepthThreshold("Depth Threshold", Float) = 0.002 // Define color of contours
 
-        _Factor1 ("Factor 1", float) = 1 // Factors for noise, used in pseudorandom noise generation
-        _Factor2 ("Factor 2", float) = 1
-        _Factor3 ("Factor 3", float) = 1
-        _Random("Random", float) = 0.1
+        _NoiseTex ("Noise Texture", 2D) = "white" { } // The texture for the noise
+
+		_NoiseIntensity ("_NoiseIntensity", Vector) = (1, 1, 1, 1) 
+		_NoiseSample ("_NoiseSample", Vector) = (1, 1, 1, 1)
+		_NoiseSampleSize ("_NoiseSampleSize", Vector) = (1, 1, 1, 1)
     }
 
     SubShader {
@@ -33,10 +34,11 @@ Properties{
             uniform float4 _SurfaceColor;
             uniform float _DepthThreshold;
 
-            float _Factor1;
-            float _Factor2;
-            float _Factor3;
-            float _Random;
+			sampler2D _NoiseTex;
+
+			float2 _NoiseIntensity;
+			float2 _NoiseSampleSize;
+			float2 _NoiseSample;
 
             // struct of v2f (close to class)
             // Includes, position, and coordinates for screen and depth
@@ -56,12 +58,6 @@ Properties{
                 COMPUTE_EYEDEPTH(o.depth); // Computes eye space depth of vertex, not rendring into depth texture, so usefull for colors
                 o.depth = (o.depth - _ProjectionParams.y) / (_ProjectionParams.z - _ProjectionParams.y); // sync with projection
                 return o;
-            }
- 
-            float noise(half2 uv, float fac1, float fac2, float fac3) {
-                // Uses the three factors to generate pseudorandom noise
-                // Seems the way most people do it in unity
-                return frac(sin(dot(uv, float2(fac1, fac2))) * fac3);
             }
 
             // The pixel shader implementation
@@ -94,13 +90,9 @@ Properties{
                 // If contour is 0, we show the surfaceColor, otherwise show contourColor.
                 float4 texcol = _SurfaceColor * (1.0 - contour) + _ContourColor * contour;
 
-                // Add noise to texColor, create noise from DeltaTime
-            	fixed4 col = noise(uv, _Factor1, _Factor2, _Factor3);
-                // Dot (multiply) the noise with the depth shader
-                if (contour == 0) {
-    				texcol = dot(dot(texcol, col), float3(1.0, 1.0, 1.0));
-    			}
-    			//texcol.a = 1;
+                half4 noiseSample = tex2D(_NoiseTex, (i.screenPos + (_NoiseSample) ) * (_NoiseSampleSize) );
+                //noiseSample.rgb = dot(noiseSample.rgb, float3(0.1, 0.2, 0.11));
+        		texcol.rgb -= noiseSample.rgb * _NoiseIntensity.x;
 
         		return texcol;
             }

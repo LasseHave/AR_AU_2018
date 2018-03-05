@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
  Shader "Unlit/GreyScale" {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" { } // The texture for the noise

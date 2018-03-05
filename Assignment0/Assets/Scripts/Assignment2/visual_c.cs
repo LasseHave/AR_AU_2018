@@ -8,15 +8,19 @@ public class visual_c : MonoBehaviour {
 
 	Mat grayScale;
 	Mat cameraImageMat;
-
+	GameObject skull;
 
 	// Use this for initialization
 	void Start () {
+		skull = GameObject.Find ("flying_skull_001");
+		skull.GetComponent<Renderer> ().material.EnableKeyword ("_NoiseSample");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		MatDisplay.SetCameraFoV (41.5f);
+
+		skull.GetComponent<Renderer> ().material.SetVector ("_NoiseSample", new Vector2 (Random.value, Random.value));
 
 		Image cameraImageRaw = CameraDevice.Instance.GetCameraImage(
 			Image.PIXEL_FORMAT.RGBA8888);
