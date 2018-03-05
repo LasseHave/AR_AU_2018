@@ -5,8 +5,8 @@ using UnityEngine.Windows.Speech;
 
 public class assignment3_a : MonoBehaviour {
 
-	public string[] keywords = new string[] { "red", "blue", "green", "yellow", "purple" };
-	public ConfidenceLevel confidence = ConfidenceLevel.Medium;
+	public string[] keywords = new string[] { "up", "blue", "green", "yellow", "purple" };
+	public ConfidenceLevel confidence = ConfidenceLevel.Low;
 
 	public KeywordRecognizer recognizer;
 	protected string word = "red";
