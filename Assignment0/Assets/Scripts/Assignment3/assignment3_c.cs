@@ -14,7 +14,6 @@ public class assignment3_c : MonoBehaviour {
 	private Mat camImageMat;
 	private Mat faceCameraMat;
 	private Mat faceWithCirclesMat;
-	private int counter = 0;
 	private bool faceDetected = false;
 
 	Texture2D unwarpedTexture;
@@ -42,25 +41,16 @@ public class assignment3_c : MonoBehaviour {
 			// Read from videoCap and save in mat
 			videoCap.read (faceCameraMat);
 
-			faceDetected = Face.getFacesHAAR (faceCameraMat, faceWithCirclesMat, @"Assets/haarcascade_eye.xml");
+			Face.getFacesHAAR (faceCameraMat, faceWithCirclesMat, "Assets/OpenCVForUnity/StreamingAssets/haarcascade_frontalface_alt.xml");
 			// We just get a random Mat in return, that not really is circles.
 			// Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
-			if (faceDetected && faceWithCirclesMat.height() > 0) {
-				MatDisplay.DisplayMat(faceWithCirclesMat, MatDisplaySettings.BOTTOM_LEFT);
-			}
-
-
-
-			// Get the front camera to texture and render
-			MatDisplay.MatToTexture(faceWithCirclesMat, ref unwarpedTexture); // Tag output og lav til texture...
-			faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture;
-
-
-			MatDisplay.DisplayMat(faceCameraMat, MatDisplaySettings.BOTTOM_RIGHT);
-
-
+			Debug.Log(faceWithCirclesMat.height ());
+				for (var i = 0; i < faceWithCirclesMat.height (); i++) {
+					double[] rec = faceWithCirclesMat.get (i, 0);
+					Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec [0], rec [1]), new Scalar (255, 0, 0));
+				}
+				
 			MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
-			counter++;
 
 		}
 
