@@ -97,7 +97,7 @@ Properties{
                 //noiseSample.rgb = dot(noiseSample.rgb, float3(0.1, 0.2, 0.11));
                 float col = noiseSample.r * noiseSample.g * noiseSample.b;
                 if (col > _Threshold) {
-        			texcol.rgb -= noiseSample.rgb * _NoiseIntensity.x;
+        			texcol.rgb = 0;
         		}
 
         		return texcol;
