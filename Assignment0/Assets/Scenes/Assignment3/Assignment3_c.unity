@@ -528,7 +528,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.28865975, y: 0, z: 0.5}
+      m_Extent: {x: 0.36877075, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -581,7 +581,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 36cb93be00000000000000bf000000000000803f00000000000000000000000036cb93be000000000000003f000000000000803f00000000000000000000803f36cb933e00000000000000bf000000000000803f000000000000803f0000000036cb933e000000000000003f000000000000803f000000000000803f0000803f
+    _typelessdata: 85cfbcbe00000000000000bf000000000000803f00000000000000000000000085cfbcbe000000000000003f000000000000803f00000000000000000000803f85cfbc3e00000000000000bf000000000000803f000000000000803f0000000085cfbc3e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -902,14 +902,14 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: shuttle_improved
+  mTrackableName: falcon
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 1.732143
+  mAspectRatio: 1.355856
   mImageTargetType: 0
-  mWidth: 0.10969071
+  mWidth: 0.14013287
   mHeight: 0.19
 --- !u!4 &1502766805
 Transform:
@@ -1178,7 +1178,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: shuttle_improvedMaterial
+  m_Name: falconMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -1211,7 +1211,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0dc251a5112a4315a34357b7bda97931, type: 3}
+        m_Texture: {fileID: 2800000, guid: 776690e7bd2348e5a624ca925fd576fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

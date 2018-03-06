@@ -45,11 +45,16 @@ public class assignment3_c : MonoBehaviour {
 			// We just get a random Mat in return, that not really is circles.
 			// Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
 			Debug.Log(faceWithCirclesMat.height ());
-				for (var i = 0; i < faceWithCirclesMat.height (); i++) {
-					double[] rec = faceWithCirclesMat.get (i, 0);
-					Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec [0], rec [1]), new Scalar (255, 0, 0));
-				}
+			for (var i = 0; i < faceWithCirclesMat.height (); i++) {
+				double[] rec = faceWithCirclesMat.get (i, 0);
+				Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec [2], rec [3]), new Scalar(0, 0, 255), 5);
+			}
 				
+
+			MatDisplay.MatToTexture(faceCameraMat, ref unwarpedTexture); // Tag output og lav til texture... 
+			faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; 
+
+
 			MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
 
 		}
