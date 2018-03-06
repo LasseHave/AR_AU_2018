@@ -136,7 +136,7 @@ public class homography_2b_a : MonoBehaviour
                 skull.GetComponent<Renderer>().material.mainTexture = tex; // Set textur på element
             }
 
-            MatDisplay.DisplayMat(destPoints, MatDisplaySettings.BOTTOM_LEFT);
+            //MatDisplay.DisplayMat(destPoints, MatDisplaySettings.BOTTOM_LEFT);
             MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
 
         }

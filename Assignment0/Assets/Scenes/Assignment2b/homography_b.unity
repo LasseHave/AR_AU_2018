@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1013,7 +1013,7 @@ Prefab:
     - target: {fileID: 13700000, guid: 61b5e4b4cef6048f294a416e0814351f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d568cdcb911ac44e3b974af8b61c38de, type: 2}
+      objectReference: {fileID: 2100000, guid: 0c0492d262052413e875b8d7a3214890, type: 2}
     - target: {fileID: 100002, guid: 61b5e4b4cef6048f294a416e0814351f, type: 3}
       propertyPath: m_Name
       value: skull
