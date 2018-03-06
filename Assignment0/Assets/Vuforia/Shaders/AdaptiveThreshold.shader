@@ -9,6 +9,8 @@ Properties{
 		_NoiseIntensity ("_NoiseIntensity", Vector) = (1, 1, 1, 1) 
 		_NoiseSample ("_NoiseSample", Vector) = (1, 1, 1, 1)
 		_NoiseSampleSize ("_NoiseSampleSize", Vector) = (1, 1, 1, 1)
+
+		_Threshold("_Threshold", Float) = 0.9
     }
 
     SubShader {
@@ -39,6 +41,7 @@ Properties{
 			float2 _NoiseIntensity;
 			float2 _NoiseSampleSize;
 			float2 _NoiseSample;
+			float _Threshold;
 
             // struct of v2f (close to class)
             // Includes, position, and coordinates for screen and depth
@@ -92,7 +95,10 @@ Properties{
 
                 half4 noiseSample = tex2D(_NoiseTex, (i.screenPos + (_NoiseSample) ) * (_NoiseSampleSize) );
                 //noiseSample.rgb = dot(noiseSample.rgb, float3(0.1, 0.2, 0.11));
-        		texcol.rgb -= noiseSample.rgb * _NoiseIntensity.x;
+                float col = noiseSample.r * noiseSample.g * noiseSample.b;
+                if (col > _Threshold) {
+        			texcol.rgb -= noiseSample.rgb * _NoiseIntensity.x;
+        		}
 
         		return texcol;
             }
