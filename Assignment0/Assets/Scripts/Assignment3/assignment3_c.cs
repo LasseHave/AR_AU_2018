@@ -15,11 +15,13 @@ public class assignment3_c : MonoBehaviour {
 	private Mat faceCameraMat;
 	private Mat faceWithCirclesMat;
 	private bool faceDetected = false;
+	private string faceXML;
 
 	Texture2D unwarpedTexture;
 
 
 	void Start () {
+		faceXML = "Assets/OpenCVForUnity/StreamingAssets/haarcascade_frontalface_alt.xml";
 		faceCameraMat = new Mat ();
 		faceWithCirclesMat = new Mat ();
 		// Start webcam on init
@@ -41,13 +43,12 @@ public class assignment3_c : MonoBehaviour {
 			// Read from videoCap and save in mat
 			videoCap.read (faceCameraMat);
 
-			Face.getFacesHAAR (faceCameraMat, faceWithCirclesMat, "Assets/OpenCVForUnity/StreamingAssets/haarcascade_frontalface_alt.xml");
-			// We just get a random Mat in return, that not really is circles.
+			Face.getFacesHAAR (faceCameraMat, faceWithCirclesMat, faceXML);
 			// Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
 			Debug.Log(faceWithCirclesMat.height ());
 			for (var i = 0; i < faceWithCirclesMat.height (); i++) {
 				double[] rec = faceWithCirclesMat.get (i, 0);
-				Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec [2], rec [3]), new Scalar(0, 0, 255), 5);
+				Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec[0]+rec [2], rec [1]+rec [3]), new Scalar(0, 0, 255), 5);
 			}
 				
 
