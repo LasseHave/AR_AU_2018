@@ -21,6 +21,7 @@ public class assignment3_c : MonoBehaviour {
 	private bool faceDetected = false;
 	private string faceXML;
     private string eyeXML;
+    private OpenCVForUnity.Rect roi;
     Texture2D unwarpedTexture;
 
 
@@ -36,8 +37,8 @@ public class assignment3_c : MonoBehaviour {
 
         warpedMat = new Mat();
         // Start webcam on init
-        //	videoCap = new VideoCapture ();
-        //videoCap.open (0);
+        videoCap = new VideoCapture ();
+        videoCap.open (0);
     }
 
     // Update is called once per frame
@@ -52,21 +53,26 @@ public class assignment3_c : MonoBehaviour {
 			camImageMat.put(0, 0, camImg.Pixels);
 
 			// Read from videoCap and save in mat
-			//videoCap.read (faceCameraMat);
+			videoCap.read (faceCameraMat);
 
-			Face.getFacesHAAR (camImageMat, faceWithSquare, faceXML);
+			Face.getFacesHAAR (faceCameraMat, faceWithSquare, faceXML);
 			// Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
 			Debug.Log(faceWithSquare.height ());
             //if(faceWithSquare.height() > 0)
             //{
             //    warpedMat = new Mat()
             //}
-			for (var i = 0; i < faceWithSquare.height (); i++) {
-				double[] rec = faceWithSquare.get (i, 0);
-				Imgproc.rectangle (camImageMat, new Point (rec [0], rec [1]), new Point (rec[0]+rec [2], rec [1]+rec [3]), new Scalar(0, 0, 255), 5);
-			}
 
-            Face.getFacesHAAR(camImageMat, eyeWithCircles, eyeXML);
+            for (var i = 0; i < faceWithSquare.height (); i++) {
+                double[] rec = faceWithSquare.get (i, 0);
+				Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec[0]+rec [2], rec [1]+rec [3]), new Scalar(0, 0, 255), 5);
+                roi = new OpenCVForUnity.Rect(new Point(rec[0], rec[1]), new Point(rec[0] + rec[2], rec[1] + rec[3]));
+            }
+            //faceCameraMat.adjustROI((int)roi.yMin, (int) roi.yMax, (int) roi.xMin, (int) roi.xMax);
+            faceCameraMat = new Mat(faceCameraMat, roi);
+            //faceCameraMat = new Mat(faceCameraMat,roi);
+
+            Face.getFacesHAAR(faceCameraMat, eyeWithCircles, eyeXML);
             // Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
             Debug.Log(eyeWithCircles.height());
             if (eyeWithCircles.height() != 0)
@@ -78,7 +84,7 @@ public class assignment3_c : MonoBehaviour {
                     Point eye_centers = new Point(rec[2] * 0.5F + rec[0], rec[3] * 0.5F + rec[1]);
                     int radius = (int) Mathf.Sqrt(Mathf.Pow(((float)rec[2])*0.5F, 2F) + Mathf.Pow(((float)rec[3]) * 0.5F, 2F));
 
-                    Imgproc.circle(camImageMat, new Point(eye_centers.x, eye_centers.y), radius, new Scalar(255, 0, 0), 5);
+                    Imgproc.circle(faceCameraMat, new Point(eye_centers.x, eye_centers.y), radius, new Scalar(255, 0, 0), 5);
                     // Imgproc.circle(camImageMat, new Point(rec[2]-rec[0], rec[3]-rec[1]), 5, new Scalar(255, 0, 0), 5);
                     //Imgproc.rectangle(camImageMat, new Point(rec[0], rec[1]), new Point(rec[0] + rec[2], rec[1] + rec[3]), new Scalar(0, 0, 255), 5);
                 }
@@ -87,8 +93,8 @@ public class assignment3_c : MonoBehaviour {
 
 
 
-            //MatDisplay.MatToTexture(faceCameraMat, ref unwarpedTexture); // Tag output og lav til texture... 
-            //faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; 
+            MatDisplay.MatToTexture(faceCameraMat, ref unwarpedTexture); // Tag output og lav til texture... 
+            faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; 
 
 
             MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);

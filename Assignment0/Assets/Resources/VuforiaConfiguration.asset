@@ -88,7 +88,7 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor: 'USB Camera #2'
+    deviceNameSetInEditor: Logitech HD Webcam C310
     flipHorizontally: 1
     turnOffWebCam: 0
     renderTextureLayer: 30
