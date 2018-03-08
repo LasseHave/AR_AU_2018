@@ -13,24 +13,35 @@ public class assignment3_c : MonoBehaviour {
 
 	private Mat camImageMat;
 	private Mat faceCameraMat;
-	private Mat faceWithCirclesMat;
+    private Mat faceWithSquare;
+    private Mat eyeCameraMat;
+    private Mat eyeWithCircles;
+    private Mat warpedMat;
+    private Mat faceWithCirclesMat;
 	private bool faceDetected = false;
 	private string faceXML;
-
-	Texture2D unwarpedTexture;
+    private string eyeXML;
+    Texture2D unwarpedTexture;
 
 
 	void Start () {
 		faceXML = "Assets/OpenCVForUnity/StreamingAssets/haarcascade_frontalface_alt.xml";
-		faceCameraMat = new Mat ();
-		faceWithCirclesMat = new Mat ();
-		// Start webcam on init
-		videoCap = new VideoCapture ();
-		videoCap.open (0);
-	}
+        eyeXML = "Assets/haarcascade_eye.xml";
 
-	// Update is called once per frame
-	void Update () {
+        faceCameraMat = new Mat ();
+		faceWithSquare = new Mat ();
+
+        eyeCameraMat = new Mat();
+        eyeWithCircles = new Mat();
+
+        warpedMat = new Mat();
+        // Start webcam on init
+        //	videoCap = new VideoCapture ();
+        //videoCap.open (0);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		Image camImg = CameraDevice.Instance.GetCameraImage(Image.PIXEL_FORMAT.RGBA8888);
 
 		if (camImg != null) {
@@ -41,22 +52,46 @@ public class assignment3_c : MonoBehaviour {
 			camImageMat.put(0, 0, camImg.Pixels);
 
 			// Read from videoCap and save in mat
-			videoCap.read (faceCameraMat);
+			//videoCap.read (faceCameraMat);
 
-			Face.getFacesHAAR (faceCameraMat, faceWithCirclesMat, faceXML);
+			Face.getFacesHAAR (camImageMat, faceWithSquare, faceXML);
 			// Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
-			Debug.Log(faceWithCirclesMat.height ());
-			for (var i = 0; i < faceWithCirclesMat.height (); i++) {
-				double[] rec = faceWithCirclesMat.get (i, 0);
-				Imgproc.rectangle (faceCameraMat, new Point (rec [0], rec [1]), new Point (rec[0]+rec [2], rec [1]+rec [3]), new Scalar(0, 0, 255), 5);
+			Debug.Log(faceWithSquare.height ());
+            //if(faceWithSquare.height() > 0)
+            //{
+            //    warpedMat = new Mat()
+            //}
+			for (var i = 0; i < faceWithSquare.height (); i++) {
+				double[] rec = faceWithSquare.get (i, 0);
+				Imgproc.rectangle (camImageMat, new Point (rec [0], rec [1]), new Point (rec[0]+rec [2], rec [1]+rec [3]), new Scalar(0, 0, 255), 5);
 			}
-				
 
-			MatDisplay.MatToTexture(faceCameraMat, ref unwarpedTexture); // Tag output og lav til texture... 
-			faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; 
+            Face.getFacesHAAR(camImageMat, eyeWithCircles, eyeXML);
+            // Face.drawFacemarks (faceCameraMat, faceWithCirclesMat);
+            Debug.Log(eyeWithCircles.height());
+            if (eyeWithCircles.height() != 0)
+            {
+                for (var i = 0; i < 2; i++)
+                {
+                    double[] rec = eyeWithCircles.get(i, 0);
+                    Debug.Log(rec[0]);
+                    Point eye_centers = new Point(rec[2] * 0.5F + rec[0], rec[3] * 0.5F + rec[1]);
+                    int radius = (int) Mathf.Sqrt(Mathf.Pow(((float)rec[2])*0.5F, 2F) + Mathf.Pow(((float)rec[3]) * 0.5F, 2F));
+
+                    Imgproc.circle(camImageMat, new Point(eye_centers.x, eye_centers.y), radius, new Scalar(255, 0, 0), 5);
+                    // Imgproc.circle(camImageMat, new Point(rec[2]-rec[0], rec[3]-rec[1]), 5, new Scalar(255, 0, 0), 5);
+                    //Imgproc.rectangle(camImageMat, new Point(rec[0], rec[1]), new Point(rec[0] + rec[2], rec[1] + rec[3]), new Scalar(0, 0, 255), 5);
+                }
+            }
 
 
-			MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
+
+
+            //MatDisplay.MatToTexture(faceCameraMat, ref unwarpedTexture); // Tag output og lav til texture... 
+            //faceImageTarget.GetComponent<Renderer>().material.mainTexture = unwarpedTexture; 
+
+
+            MatDisplay.DisplayMat(camImageMat, MatDisplaySettings.FULL_BACKGROUND);
 
 		}
 
