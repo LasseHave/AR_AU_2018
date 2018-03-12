@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49393230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2440011, y: 0.001, z: 0.23300111}
+  m_LocalPosition: {x: -0.2440012, y: 0.001, z: 0.2330012}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -160,18 +160,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.54009855
+    e02: -0.039
+    e03: 0.5400984
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.3172015
+    e22: -0.000000004649162
+    e23: -0.3172016
     e30: 0
     e31: 0
     e32: 0
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117271611}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3970022, y: 0.001, z: 0.062000018}
+  m_LocalPosition: {x: -0.39700237, y: 0.001, z: 0.062000018}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -277,18 +277,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.76240003
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.51610285
+    e22: -0.000000004649162
+    e23: -0.5161031
     e30: 0
     e31: 0
     e32: 0
@@ -373,7 +373,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 152179684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3480023, y: 0.001, z: 0.1640012}
+  m_LocalPosition: {x: -0.3480025, y: 0.001, z: 0.16400129}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -394,18 +394,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.6297985
+    e02: -0.039
+    e03: 0.62979835
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.45240307
+    e22: -0.000000004649162
+    e23: -0.4524033
     e30: 0
     e31: 0
     e32: 0
@@ -490,7 +490,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 153983238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.39600217, y: 0.001, z: -0.063}
+  m_LocalPosition: {x: -0.39600235, y: 0.001, z: -0.063}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -511,18 +511,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.92490005
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.5148029
+    e22: -0.000000004649162
+    e23: -0.5148031
     e30: 0
     e31: 0
     e32: 0
@@ -607,7 +607,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 165209406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38100216, y: 0.001, z: -0.11900008}
+  m_LocalPosition: {x: -0.38100234, y: 0.001, z: -0.11900008}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -628,18 +628,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.99770015
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.4953028
+    e22: -0.000000004649162
+    e23: -0.49530303
     e30: 0
     e31: 0
     e32: 0
@@ -724,7 +724,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 166797461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38100222, y: 0.001, z: 0.11800001}
+  m_LocalPosition: {x: -0.3810024, y: 0.001, z: 0.11800001}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -745,18 +745,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.68960005
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.49530295
+    e22: -0.000000004649162
+    e23: -0.49530318
     e30: 0
     e31: 0
     e32: 0
@@ -1091,17 +1091,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.0627
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: 0.039000038
     e30: 0
     e31: 0
@@ -1187,7 +1187,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 272184790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4070022, y: 0.001, z: -0.002000011}
+  m_LocalPosition: {x: -0.4070024, y: 0.001, z: -0.002000011}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -1208,18 +1208,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.84560007
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.5291029
+    e22: -0.000000004649162
+    e23: -0.52910316
     e30: 0
     e31: 0
     e32: 0
@@ -1618,6 +1618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffafcfd9b1ed4d8f8794117a819285a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbed: 1
+  counter: 0
 --- !u!1 &363225224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,7 +1763,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 383280760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18700112, y: 0.001, z: -0.25100008}
+  m_LocalPosition: {x: -0.18700121, y: 0.001, z: -0.25100008}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -1782,18 +1784,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1693001
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.24310143
+    e22: -0.000000004649162
+    e23: -0.24310155
     e30: 0
     e31: 0
     e32: 0
@@ -1899,17 +1901,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.6948
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: 0.08580002
     e30: 0
     e31: 0
@@ -1975,7 +1977,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EarthMaterial
+  m_Name: shuttle_improvedMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -2008,7 +2010,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1b1308f1b8d14e8c91a271f9d1fc0036, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dc251a5112a4315a34357b7bda97931, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -2076,7 +2078,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 483535651}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.090000555, y: 0.001, z: 0.057999987}
+  m_LocalPosition: {x: 0.0900006, y: 0.001, z: 0.057999987}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -2097,18 +2099,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.7676
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: 0.11700072
+    e22: -0.000000004649162
+    e23: 0.11700078
     e30: 0
     e31: 0
     e32: 0
@@ -2277,7 +2279,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.28865975, y: 0, z: 0.5}
+      m_Extent: {x: 0.5, y: 0, z: 0.4980545}
   m_Shapes:
     vertices: []
     shapes: []
@@ -2330,7 +2332,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 36cb93be00000000000000bf000000000000803f00000000000000000000000036cb93be000000000000003f000000000000803f00000000000000000000803f36cb933e00000000000000bf000000000000803f000000000000803f0000000036cb933e000000000000003f000000000000803f000000000000803f0000803f
+    _typelessdata: 000000bf000000000001ffbe00000000ffff7f3f000000000000000000000000000000bf000000000001ff3e00000000ffff7f3f00000000000000000000803f0000003f000000000001ffbe00000000ffff7f3f000000000000803f000000000000003f000000000001ff3e00000000ffff7f3f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -2533,7 +2535,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 849469241}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.010999993, y: 0.001, z: 0.20500113}
+  m_LocalPosition: {x: -0.010999993, y: 0.001, z: 0.20500122}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -2554,17 +2556,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.5764985
+    e02: -0.039
+    e03: 0.5764984
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: -0.014300024
     e30: 0
     e31: 0
@@ -2898,7 +2900,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 998153726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09000054, y: 0.001, z: -0.064}
+  m_LocalPosition: {x: 0.090000585, y: 0.001, z: -0.064}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -2919,18 +2921,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.9262
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: 0.117000714
+    e22: -0.000000004649162
+    e23: 0.11700077
     e30: 0
     e31: 0
     e32: 0
@@ -3036,17 +3038,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1640999
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: -0.16639999
     e30: 0
     e31: 0
@@ -3262,7 +3264,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1030210124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.30300215, y: 0.001, z: -0.21400024}
+  m_LocalPosition: {x: -0.30300236, y: 0.001, z: -0.21400024}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -3283,18 +3285,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1212003
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.39390278
+    e22: -0.000000004649162
+    e23: -0.39390305
     e30: 0
     e31: 0
     e32: 0
@@ -3400,17 +3402,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1498001
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: -0.08319998
     e30: 0
     e31: 0
@@ -3743,7 +3745,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1179521654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07000009, y: 0.001, z: 0.2350011}
+  m_LocalPosition: {x: -0.07000009, y: 0.001, z: 0.23500119}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -3764,17 +3766,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.53749853
+    e02: -0.039
+    e03: 0.5374984
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: -0.09100016
     e30: 0
     e31: 0
@@ -3860,7 +3862,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1212924729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.29900214, y: 0.001, z: 0.2040011}
+  m_LocalPosition: {x: -0.29900232, y: 0.001, z: 0.20400119}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -3881,18 +3883,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.5777986
+    e02: -0.039
+    e03: 0.5777985
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.38870284
+    e22: -0.000000004649162
+    e23: -0.38870308
     e30: 0
     e31: 0
     e32: 0
@@ -3977,7 +3979,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273620186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06600025, y: 0.001, z: -0.11700004}
+  m_LocalPosition: {x: 0.066000275, y: 0.001, z: -0.11700004}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -3998,18 +4000,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.9951
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: 0.08580035
+    e22: -0.000000004649162
+    e23: 0.08580038
     e30: 0
     e31: 0
     e32: 0
@@ -4094,7 +4096,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1465335495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.030000042, y: 0.001, z: 0.16500103}
+  m_LocalPosition: {x: 0.030000042, y: 0.001, z: 0.16500112}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -4115,17 +4117,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.6284987
+    e02: -0.039
+    e03: 0.62849855
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: 0.03900003
     e30: 0
     e31: 0
@@ -4211,7 +4213,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1469025752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.12700051, y: 0.001, z: 0.24800108}
+  m_LocalPosition: {x: -0.12700056, y: 0.001, z: 0.24800117}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -4285,18 +4287,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.5205986
+    e02: -0.039
+    e03: 0.5205985
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.16510072
+    e22: -0.000000004649162
+    e23: -0.16510078
     e30: 0
     e31: 0
     e32: 0
@@ -4328,7 +4330,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1491573071}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.24400109, y: 0.001, z: -0.2440001}
+  m_LocalPosition: {x: -0.24400118, y: 0.001, z: -0.2440001}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -4349,18 +4351,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1602001
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.3172014
+    e22: -0.000000004649162
+    e23: -0.31720152
     e30: 0
     e31: 0
     e32: 0
@@ -4513,15 +4515,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: shuttle_improved
+  mTrackableName: Earth
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 1.732143
+  mAspectRatio: 0.996109
   mImageTargetType: 0
-  mWidth: 0.10969071
-  mHeight: 0.19
+  mWidth: 0.19
+  mHeight: 0.1892607
 --- !u!4 &1502766805
 Transform:
   m_ObjectHideFlags: 0
@@ -4562,7 +4564,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1516978434}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18300107, y: 0.001, z: 0.2440011}
+  m_LocalPosition: {x: -0.18300116, y: 0.001, z: 0.2440012}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -4583,18 +4585,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
-    e03: 0.52579856
+    e02: -0.039
+    e03: 0.52579844
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.23790145
+    e22: -0.000000004649162
+    e23: -0.23790157
     e30: 0
     e31: 0
     e32: 0
@@ -4747,15 +4749,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: Earth
+  mTrackableName: shuttle_improved
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Assignment1_v4.xml
   mExtendedTracking: 0
-  mAspectRatio: 0.996109
+  mAspectRatio: 1.732143
   mImageTargetType: 0
-  mWidth: 0.19
-  mHeight: 0.1892607
+  mWidth: 0.10969071
+  mHeight: 0.19
 --- !u!4 &1529819998
 Transform:
   m_ObjectHideFlags: 0
@@ -4817,17 +4819,17 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.1108
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
+    e22: -0.000000004649162
     e23: -0.018199982
     e30: 0
     e31: 0
@@ -5023,7 +5025,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: shuttle_improvedMaterial
+  m_Name: EarthMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -5056,7 +5058,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0dc251a5112a4315a34357b7bda97931, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b1308f1b8d14e8c91a271f9d1fc0036, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -5124,7 +5126,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1641056380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09300054, y: 0.001, z: -0.000000011462432}
+  m_LocalPosition: {x: 0.09300058, y: 0.001, z: -0.000000011462432}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -5145,18 +5147,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 0.843
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: 0.120900705
+    e22: -0.000000004649162
+    e23: 0.120900765
     e30: 0
     e31: 0
     e32: 0
@@ -5303,7 +5305,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1688849546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.34000236, y: 0.001, z: -0.16400038}
+  m_LocalPosition: {x: -0.34000257, y: 0.001, z: -0.16400038}
   m_LocalScale: {x: 0.03, y: 1, z: 0.03}
   m_Children: []
   m_Father: {fileID: 305509171}
@@ -5324,18 +5326,18 @@ MonoBehaviour:
   mSensitivity: 0
   mHasUpdatedPose: 1
   mPrevTransform:
-    e00: -0.0000000030994414
+    e00: -0.000000004649162
     e01: 0
-    e02: -0.026
+    e02: -0.039
     e03: 1.0562005
     e10: 0
     e11: 1.3
     e12: 0
     e13: 0.0013
-    e20: 0.026
+    e20: 0.039
     e21: 0
-    e22: -0.0000000030994414
-    e23: -0.44200307
+    e22: -0.000000004649162
+    e23: -0.44200334
     e30: 0
     e31: 0
     e32: 0
@@ -5606,7 +5608,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 0, z: 0.4980545}
+      m_Extent: {x: 0.28865975, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -5659,7 +5661,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 000000bf000000000001ffbe00000000ffff7f3f000000000000000000000000000000bf000000000001ff3e00000000ffff7f3f00000000000000000000803f0000003f000000000001ffbe00000000ffff7f3f000000000000803f000000000000003f000000000001ff3e00000000ffff7f3f000000000000803f0000803f
+    _typelessdata: 36cb93be00000000000000bf000000000000803f00000000000000000000000036cb93be000000000000003f000000000000803f00000000000000000000803f36cb933e00000000000000bf000000000000803f000000000000803f0000000036cb933e000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
