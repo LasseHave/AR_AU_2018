@@ -57,9 +57,9 @@ MonoBehaviour:
     - Assignment0
     - AR2018
     dataSetsToActivate:
-    - VuforiaMars_Object_OT
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - VuforiaMars_Object_OT
     - Assignment3
     - Assignment2b
     - Assigment2_mesh
