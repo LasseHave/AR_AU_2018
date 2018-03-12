@@ -46,6 +46,7 @@ MonoBehaviour:
     dataSetsToLoad:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - AR
     - Assignment3
     - Assignment2b
     - Assigment2_mesh
@@ -59,6 +60,7 @@ MonoBehaviour:
     dataSetsToActivate:
     - VuforiaMars_Images
     - VuforiaMars_VuMark
+    - AR
     - VuforiaMars_Object_OT
     - Assignment3
     - Assignment2b
@@ -88,7 +90,7 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor: Logitech HD Webcam C310
+    deviceNameSetInEditor: USB Camera
     flipHorizontally: 1
     turnOffWebCam: 0
     renderTextureLayer: 30

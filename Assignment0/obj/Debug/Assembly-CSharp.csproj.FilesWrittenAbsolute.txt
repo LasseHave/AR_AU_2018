@@ -90,3 +90,5 @@
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll
 /Users/lassehavenielsen/GIT/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/alexander/Repos/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll
+/Users/alexander/Repos/AR_AU_2018/Assignment0/obj/Debug/Assembly-CSharp.dll.mdb
