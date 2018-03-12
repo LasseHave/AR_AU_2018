@@ -179,6 +179,9 @@ public class assignment3_d : MonoBehaviour, IVirtualButtonEventHandler
 
     private void addText(string input)
     {
+		if (text.Length > 0 && text.Length % 9 == 0) {
+			text = text + "\n";
+		}
         text = text + input;
         textField.GetComponent<TextMesh>().text = text;
         Debug.Log(text);
