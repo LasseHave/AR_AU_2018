@@ -6,9 +6,11 @@ using UnityEngine.Windows.Speech;
 public class speech_script : MonoBehaviour {
 
     private string[] keywords = new string[] { "Red", "Yellow", "Black", "Blue", "Green" , "One", "Two", "Three", "Clean","Up","Down"};
-    private ConfidenceLevel confidence = ConfidenceLevel.Medium;
+    private ConfidenceLevel confidence = ConfidenceLevel.Low;
 
-    private GameObject QuadPost1, QuadPost2, QuadPost3, QuadPostCurrent;
+    private GameObject QuadPost1, QuadPost2, QuadPost3, QuadPostCurrent, PostIt1, PostIt2, PostIt3, PostItCurrent;
+
+    static Material lineMaterial;
 
     protected PhraseRecognizer recognizer;
     protected string word = "";
@@ -26,6 +28,11 @@ public class speech_script : MonoBehaviour {
         QuadPost1 = GameObject.Find("Quad_post1");
         QuadPost2 = GameObject.Find("Quad_post2");
         QuadPost3 = GameObject.Find("Quad_post3");
+        QuadPostCurrent = QuadPost1;
+        PostIt1 = GameObject.Find("PostIt1"); ;
+        PostIt2 = GameObject.Find("PostIt2"); ;
+        PostIt3 = GameObject.Find("PostIt3"); ;
+        PostItCurrent = PostIt1;
 
         if (keywords != null)
         {
@@ -43,6 +50,24 @@ public class speech_script : MonoBehaviour {
         {
             post_id = word;
             Debug.Log("You selected post <b>" + post_id + "</b>");
+            switch (post_id)
+            {
+                case "One":
+                    QuadPostCurrent = QuadPost1;
+                    PostItCurrent = PostIt1;
+                    index = 0;
+                    break;
+                case "Two":
+                    QuadPostCurrent = QuadPost2;
+                    PostItCurrent = PostIt2;
+                    index = 1;
+                    break;
+                case "Three":
+                    QuadPostCurrent = QuadPost3;
+                    PostItCurrent = PostIt3;
+                    index = 2;
+                    break;
+            }
         }
         else if (word.Equals("Clean"))
         {
@@ -57,21 +82,6 @@ public class speech_script : MonoBehaviour {
             brightness[2] = 1F;
         } else
         {
-            switch (post_id)
-            {
-                case "One":
-                    QuadPostCurrent = QuadPost1;
-                    index = 0;
-                    break;
-                case "Two":
-                    QuadPostCurrent = QuadPost2;
-                    index = 1;
-                    break;
-                case "Three":
-                    QuadPostCurrent = QuadPost3;
-                    index = 2;
-                    break;
-            }
             switch(word)
             {
                 case "Red":
@@ -106,12 +116,72 @@ public class speech_script : MonoBehaviour {
                     break;
             }
             QuadPostCurrent.GetComponent<Renderer>().material.color = color_idx[index] * brightness[index];
-
+            
             Debug.Log("You selected post <b>" + post_id + "</b> and color <b>" + word + "</b>" + " with brightness <b>" + brightness[index] + "</b>");
         }
   
 
     }
+    private void DrawSelectedLines()
+    {
+        GL.Begin(GL.LINES);
+        GL.Color(Color.white);
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, -0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, -0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, -0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, -0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, -0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(-0.52F, 0.025F, 0.52F))));
+        GL.Vertex(PostItCurrent.transform.localToWorldMatrix.MultiplyPoint3x4((new Vector3(0.52F, 0.025F, -0.52F))));
+        GL.End();
+    }
+
+
+    // Will be called after all regular rendering is done
+    private void OnGUI()
+    {
+        GUI.color = Color.red;
+        GUI.skin.label.fontSize = 16;
+        GUI.Label(new Rect(10, 10, 700, 100), "Select a post it note, saying: <One, Two, Three>");
+        GUI.Label(new Rect(10, 30, 700, 100), "Select a color, saying: <Red, Blue, Black, Green, Yellow>");
+    }
+
+    // Will be called after all regular rendering is done
+    public void OnRenderObject()
+    {
+            CreateLineMaterial();
+            // Apply the line material
+            lineMaterial.SetPass(0);
+            
+            DrawSelectedLines();
+     
+    }
+
+    // Generate material for the ray
+    static void CreateLineMaterial()
+    {
+        if (!lineMaterial)
+        {
+            // Unity has a built-in shader that is useful for drawing
+            // simple colored things.
+            Shader shader = Shader.Find("Hidden/Internal-Colored");
+            lineMaterial = new Material(shader);
+            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            // Turn on alpha blending
+            lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            // Turn backface culling off
+            lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
+            // Turn off depth writes
+            lineMaterial.SetInt("_ZWrite", 0);
+        }
+    }
+  
 
     private void Update()
     {
