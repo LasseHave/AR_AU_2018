@@ -9,7 +9,6 @@ public class DrawButton : MonoBehaviour, IVirtualButtonEventHandler {
 
 	// Use this for initialization
 	void Start () {
-
 		cam = GameObject.Find ("ARCamera");
 
 		GameObject virtualButtonObject = GameObject.Find ("drawButton");
@@ -32,6 +31,5 @@ public class DrawButton : MonoBehaviour, IVirtualButtonEventHandler {
 	public void OnButtonReleased(VirtualButtonBehaviour vb) { 
 		Debug.Log("button released");
 		cam.GetComponent<Assignment3_e> ().drawButtonState = false;
-		cam.GetComponent<Assignment3_e> ().foundFingerHSV = false;
 	}
 }

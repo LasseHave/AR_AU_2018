@@ -35,6 +35,7 @@ public class Assignment3_e : MonoBehaviour {
 	private GameObject drawButton;
 	//private Renderer rend;
 	//private Texture2D newTexture;
+	private int frameCount = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -131,7 +132,7 @@ public class Assignment3_e : MonoBehaviour {
 				if (hit.collider) {
 					//fingerObj.transform.position = hit.point;
 
-					if (drawButtonState) {
+					if (drawButtonState || frameCount < 30) {
 						Instantiate (circlePrefab, hit.point, Quaternion.identity);
 					}
 				}
@@ -141,6 +142,12 @@ public class Assignment3_e : MonoBehaviour {
 
 			MatDisplay.DisplayMat (cameraImageMat, MatDisplaySettings.FULL_BACKGROUND);
 			MatDisplay.DisplayMat (hsv, MatDisplaySettings.BOTTOM_LEFT);
+		}
+
+		if (drawButtonState) {
+			frameCount = 0;
+		} else {
+			frameCount++;
 		}
 	}
 }
