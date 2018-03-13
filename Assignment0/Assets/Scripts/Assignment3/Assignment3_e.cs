@@ -25,19 +25,21 @@ public class Assignment3_e : MonoBehaviour {
 	public int elementSize = 5;
 
 
-	public bool isDrawing = false;
+	public bool drawButtonState = false;
+
+	public bool foundFingerHSV = false;
+
+	public GameObject circlePrefab;
 
 	private GameObject drawPlate;
-	private Renderer rend;
-	private Texture2D newTexture;
+	private GameObject drawButton;
+	//private Renderer rend;
+	//private Texture2D newTexture;
 
 	// Use this for initialization
 	void Start () {
-
 		drawPlate = GameObject.Find ("DrawPlate");
-
-		rend = drawPlate.GetComponent<Renderer>();
-		newTexture = Instantiate(rend.material.mainTexture) as Texture2D;
+		drawButton = GameObject.Find ("drawButton");
 	}
 	
 	// Update is called once per frame
@@ -53,6 +55,12 @@ public class Assignment3_e : MonoBehaviour {
 
 			byte[] pixels = cameraImageRaw.Pixels;
 			cameraImageMat.put (0, 0, pixels);
+
+			if (!foundFingerHSV && drawButtonState) {
+				var virtualButtonViewCoords = Camera.main.WorldToViewportPoint (drawButton.transform.position);
+				var pixel = cameraImageMat.get ((int)virtualButtonViewCoords.x, (int)virtualButtonViewCoords.y);
+				Debug.Log (pixel[0] + ", " + pixel[1] + ", " + pixel[2]);
+			}
 
 			/// Preprocessing
 			// HSV
@@ -84,7 +92,7 @@ public class Assignment3_e : MonoBehaviour {
 				}
 			}
 
-			Imgproc.drawContours (cameraImageMat, contours, largestIdx, new Scalar (0, 0, 255), 1);
+			// Imgproc.drawContours (cameraImageMat, contours, largestIdx, new Scalar (0, 0, 255), 1);
 
 			if (largestIdx != -1) {
 				var largeContour = contours [largestIdx].toList();
@@ -100,10 +108,6 @@ public class Assignment3_e : MonoBehaviour {
 						finger = po;
 					}
 				}
-
-
-				rend.material.mainTexture = newTexture;
-
 	
 				Vector3 p = new Vector3();
 				Camera  c = Camera.main;
@@ -117,80 +121,23 @@ public class Assignment3_e : MonoBehaviour {
 
 				p = c.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 22) );
 
-				GameObject.Find ("Finger").transform.position = p;
+				//var fingerObj = GameObject.Find ("Finger");
+				//fingerObj.transform.position = p;
 
-				Ray ray = c.ScreenPointToRay(new Vector3(mousePos.x, mousePos.y, 0));
-				Debug.DrawRay(ray.origin, ray.direction * 22, Color.yellow);
-
+				Ray ray = c.ScreenPointToRay (mousePos);
 				RaycastHit hit;
-				if (Physics.Raycast (ray, out hit)) {
-					Renderer rend = hit.transform.GetComponentInParent<Renderer>();
+				Physics.Raycast(c.transform.position, ray.direction, out hit, 10000.0f);
 
-					if (rend == null || rend.material == null || rend.material.mainTexture == null)
-						return;
+				if (hit.collider) {
+					//fingerObj.transform.position = hit.point;
 
-					Debug.Log ("HIT");
-
-					Texture2D tex = rend.material.mainTexture as Texture2D;
-					Vector2 pixelUV = hit.textureCoord;
-					pixelUV.x *= tex.width;
-					pixelUV.y *= tex.height;
-
-					Debug.Log (pixelUV);
-
-					tex.SetPixel((int)pixelUV.x, (int)pixelUV.y, Color.black);
-
-					rend.material.mainTexture = tex;
+					if (drawButtonState) {
+						Instantiate (circlePrefab, hit.point, Quaternion.identity);
+					}
 				}
 
-				/*
-				Vector3 localPos = drawPlate.transform.InverseTransformPoint (p);
-				Debug.Log (localPos);
-
-				var height = 22;//rend.material.mainTexture.height;
-				var width = 22;//rend.material.mainTexture.width;
-
-				var texX = localPos.x / width * width;
-				var texY = localPos.y / height * height;
-
-				Debug.Log (texX + ":" + texY);
-
-				newTexture.SetPixel ((int)texX, (int)texY, Color.black);
-
-				// actually apply all SetPixels, don't recalculate mip levels
-				newTexture.Apply(false);
-				*/
 
 			}
-
-			/*
-			// Polygon / hull
-			if (contours.Count > 0) {
-				var contourPoints = contours [largestIdx].toList ();
-
-				MatOfInt indexes = new MatOfInt();
-
-				Imgproc.convexHull (contours[largestIdx], indexes, false);
-
-				List<MatOfPoint> hull = new List<MatOfPoint> ();
-
-				var list = indexes.toList ();
-
-				var points = new List<Point> ();
-				for (int i = 0; i < list.Count; i++) {
-					var index = list[i];
-					points.Add (contourPoints [index]);
-
-				}
-
-				hull.Add ( new MatOfPoint(points.ToArray()) );
-
-				Imgproc.drawContours(cameraImageMat, hull, 0, new Scalar (0, 255, 0), 3);
-
-				//if (points.ToArray ().Length > 2) {
-				//}
-			}
-			*/
 
 			MatDisplay.DisplayMat (cameraImageMat, MatDisplaySettings.FULL_BACKGROUND);
 			MatDisplay.DisplayMat (hsv, MatDisplaySettings.BOTTOM_LEFT);

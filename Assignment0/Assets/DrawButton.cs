@@ -23,7 +23,7 @@ public class DrawButton : MonoBehaviour, IVirtualButtonEventHandler {
 	public void OnButtonPressed(VirtualButtonBehaviour vb) {
 		Debug.Log("button pressed");
 
-		cam.GetComponent<Assignment3_e> ().isDrawing = true;
+		cam.GetComponent<Assignment3_e> ().drawButtonState = true;
 	}
 
 	/// <summary>
@@ -31,6 +31,7 @@ public class DrawButton : MonoBehaviour, IVirtualButtonEventHandler {
 	/// </summary>
 	public void OnButtonReleased(VirtualButtonBehaviour vb) { 
 		Debug.Log("button released");
-		cam.GetComponent<Assignment3_e> ().isDrawing = false;
+		cam.GetComponent<Assignment3_e> ().drawButtonState = false;
+		cam.GetComponent<Assignment3_e> ().foundFingerHSV = false;
 	}
 }
